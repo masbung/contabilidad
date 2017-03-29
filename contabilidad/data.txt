@@ -1,0 +1,4 @@
+Primera	 100 
+Segunda	 200 
+Tercera	 300 
+Cuarta	 400 

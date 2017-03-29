@@ -16,7 +16,7 @@ void save(char AccountName[100], int balance) {
 void load() {
     char c;
     FILE *pFile;
-    char temp_account_name[100];
+    //char temp_account_name[100];
     pFile = fopen("data.txt" , "r"); 
 
     if (pFile != NULL) {

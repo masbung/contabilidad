@@ -3,3 +3,4 @@ Segunda	 200
 Tercera	 300 
 Cuarta	 400 
 Primera	 100 
+Quinta	 500 

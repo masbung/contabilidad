@@ -24,18 +24,19 @@ void load() {
         do {
             c = fgetc(pFile);
             int i = 0; /* indice del caracter */
-            while (c != ' ') {
+            while (c != ' ' && c != EOF) {
                 g_account_name[r][i] = c;
                 i = i + 1;
             }
+            g_account_name[r][i] = '\0';
             i = i + 1; /* brinco el espacio */
             printf("%s\n", g_account_name[r]);
             /* ahora el numero */
-            while (c >= '0' && c <= '9') {
+            while (c >= '0' && c <= '9' && c != EOF) {
                 i = i + 1;
             }
             /* ahora el enter */
-            while (c != '\n' || c != EOF) {
+            while (c != '\n' && c != EOF) {
                 i = i + 1;
             } 
         } while (c != EOF);

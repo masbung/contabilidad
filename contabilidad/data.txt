@@ -1,6 +1,3 @@
-Primera	 100 
-Segunda	 200 
-Tercera	 300 
-Cuarta	 400 
-Primera	 100 
-Quinta	 500 
+Primera 100
+Segunda 150
+Tercera 350

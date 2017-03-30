@@ -1,26 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int g_account_number[10];
 char g_account_name[10][100];
 int g_balance[10];
 int r;
 int accounts_count;
 
-void save(char AccountName[100], int balance) {
+void save(int AccountNumber, char AccountName[100], int balance) {
     FILE *pFile;
     pFile = fopen("data.txt" , "a"); 
+    fprintf (pFile,"%d",AccountNumber);
     fprintf (pFile,"\n%s",AccountName);
     fprintf (pFile," %d",balance);
     fclose (pFile);                  
-}
-
-void save2() {
-    FILE *pFile;
-    pFile = fopen("data.txt" , "w"); 
-    for (int r = 0; r < accounts_count; r++){
-        fprintf(pFile,"%s %d\n", g_account_name[r], g_balance[r]);
-    }
-    fclose (pFile);           
 }
 
 void load() {
@@ -74,32 +67,34 @@ void list_accounts() {
 }
 
 void add_account() {
+    int AccountNumber;
     char AccountName [100];
-    int balance;
+    int balance; 
 
+    printf("Numero de cuenta:");
+    scanf ("%d",&AccountNumber);
     printf("Nombre de la cuenta:");
-    scanf ("%s",AccountName);            
+    scanf ("%s",AccountName);             
     printf("Balance:");
     scanf ("%d",&balance);  
-    save(AccountName, balance);
+    save(AccountNumber, AccountName, balance);
 }
 
-void make_move(){ 
-    int source, destination, qty;
+void make_move() {
+    int move;
 
-    list_accounts();
-    printf("Elige el numero de cuenta de retiro:");
-    scanf("%d",&source);
-    printf("Elige el numero de cuenta de deposito:");
-    scanf("%d",&destination);
-    printf("Elige el monto a transferir:");
-    scanf("%d",&qty);
-    do{
-        g_balance[source]=g_balance[source] - qty;
-        g_balance[destination]=g_balance[destination] + qty;
-    } while(destination <=1);
-    list_accounts();
-    save2();
+    printf("Que movimiento desea hacer?\n 1. Depositar \n 2. Retirar \n 3. Transferir \n");
+    scanf ("%d",&move);
+        if (move == 1){
+            printf("Selecciona el numero de cuenta a la que deseas depositar \n");
+        }
+        if (move == 2){
+            printf("Retirar \n");
+        }
+        if (move == 3){
+            printf("Transferir \n");
+        }  
+    //save(AccountName, balance);
 }
 
 int main () { 
@@ -116,7 +111,7 @@ int main () {
                 add_account();                     
                 break;
             case 3:
-                make_move();                    
+                make_move();                                   
                 break;   
             case 4:
                 printf("Gracias...\n");

@@ -15,7 +15,6 @@ int main (){
                 c = fgetc(pFile);
                 if ( c != EOF && c != ' ') {
                     g_account_name[r][i] = c;
-                    printf ("%c",g_account_name[r][i]); 
                 }
                 i = i + 1;
             } while (c != EOF && c != ' '); /* (!feof(pFile)) */

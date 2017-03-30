@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h> //malloc
 
 char g_account_name[10][100];
 int g_balance[10];
 int r;
 int accounts_count;
 
-void save(char AccountName[100], int balance) {
+void save_new_account(char AccountName[100], int balance) {
     FILE *pFile;
     pFile = fopen("data.txt" , "a"); 
     fprintf (pFile,"\n%s",AccountName);
@@ -14,7 +15,7 @@ void save(char AccountName[100], int balance) {
     fclose (pFile);                  
 }
 
-void save2() {
+void save_all() {
     FILE *pFile;
     pFile = fopen("data.txt" , "w"); 
     for (int r = 0; r < accounts_count; r++){
@@ -23,7 +24,7 @@ void save2() {
     fclose (pFile);           
 }
 
-void load() {
+void load_all() {
     char c;
     r = 0;
     int i = 0;
@@ -75,13 +76,21 @@ void list_accounts() {
 
 void add_account() {
     char AccountName [100];
-    int balance;
+    int balance, numero_cuentas, i;
 
-    printf("Nombre de la cuenta:");
-    scanf ("%s",AccountName);            
-    printf("Balance:");
-    scanf ("%d",&balance);  
-    save(AccountName, balance);
+    printf("Cuantas cuentas quieres agregar?");
+    scanf("%d",&numero_cuentas);
+    for (i=0; i < numero_cuentas; i++){
+        printf("Nombre de la cuenta:");
+        scanf ("%s",AccountName);            
+        printf("Balance:");
+        scanf ("%d",&balance);
+        strcpy(g_account_name[accounts_count], AccountName);
+        g_balance[accounts_count] = balance;
+        accounts_count = accounts_count + 1;
+        save_new_account(AccountName, balance);
+    }    
+   
 }
 
 void make_move(){ 
@@ -99,12 +108,12 @@ void make_move(){
         g_balance[destination]=g_balance[destination] + qty;
     } while(destination <=1);
     list_accounts();
-    save2();
+    save_all();
 }
 
 int main () { 
     int menu_option;     
-    load();
+    load_all();
     do {
         printf("Que funcion quieres hacer?\n 1. Listar cuentas \n 2. Agregar cuentas \n 3. Realizar un movimiento \n 4. Salir del programa\n");
         scanf("%d",&menu_option);    

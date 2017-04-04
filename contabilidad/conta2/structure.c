@@ -24,9 +24,8 @@ void print_all(CUENTA *current) {
 }
 
 void add_account(CUENTA* current) {
-    while(current->next != NULL) {
+    while(current->next != NULL){
          current = current->next;
-         printf("NO ES NULO: ");
     }
     printf("Dame el id de la cuenta: ");
     scanf("%d", &current->id );

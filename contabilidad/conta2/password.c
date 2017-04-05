@@ -24,7 +24,6 @@ int compare(char *s, char*t){
 }
 
 int old_password (){
-    //printf ("Password?\n");
 
     int i=0;
     printf("Password?");
@@ -39,7 +38,6 @@ int old_password (){
     i=0;
     trim(str);
     compare (str, password);
-    return 0;
 }
 
 int password_pass(){
@@ -94,6 +92,7 @@ int access(){
             }
         }while(1>2);
     }
+    fclose(fPointer);
     return 0;
 }
 

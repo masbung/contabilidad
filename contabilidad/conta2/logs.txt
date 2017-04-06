@@ -1,10 +1,43 @@
-Thu Apr 06 14:18:15 2017
-Cuenta de retiro: 3	Tres	200	Cuenta de deposito: 4	Cuatro	400
-Thu Apr 06 15:38:11 2017
-Cuenta de retiro: 1	Uno	50	Cuenta de deposito: 2	Dos	200
-Thu Apr 06 15:45:14 2017
-Cuenta de retiro: 1	Uno	50	Cuenta de deposito: 2	Dos	300
-Thu Apr 06 15:47:49 2017
-Cuenta de retiro: 1	Uno	50	Cuenta de deposito: 2	Dos	350
-Thu Apr 06 15:49:32 2017
-Cuenta de retiro: 1	Uno	50	Cuenta de deposito: 2	Dos	450
+Thu Apr 06 17:36:09 2017
+Cuenta de retiro:
+No.	Cuenta	Balance
+1	Depositos	50
+Cuenta de deposito:
+No.	Cuenta	Balance
+2	Retiros	350
+Cantidad del movimiento 50 
+Thu Apr 06 17:38:14 2017
+Cuenta de retiro:
+No.	Cuenta	Balance
+1	Depositos	70
+Cuenta de deposito:
+No.	Cuenta	Balance
+2	Retiros	330
+Cantidad del movimiento 30 
+Thu Apr 06 17:45:31 2017
+Cuenta de retiro:
+No.		Cuenta		Balance
+1		Retiros		50
+Cuenta de deposito:
+No.		Cuenta		Balance
+2		Retiros		350
+Cantidad del movimiento 50 
+
+Thu Apr 06 17:46:45 2017
+Cuenta de retiro:
+No.		Cuenta		Balance
+1		Retiros		50
+Cuenta de deposito:
+No.		Cuenta		Balance
+2		Retiros		350
+Cantidad del movimiento 50 
+
+Cuenta de deposito:
+No.		Cuenta		Balance
+1		Retiros		100
+Cantidad del movimiento 50 
+
+Thu Apr 06 17:47:03 2017
+Cuenta de retiro:
+No.		Cuenta		Balance
+2		Retiros		300

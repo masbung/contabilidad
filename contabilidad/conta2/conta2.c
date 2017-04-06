@@ -6,6 +6,9 @@
 
 //contabilidad
 
+int qty;
+int *pqty = &qty; //Declare a pointer with *
+
 struct struct_cuenta {
         int id;
         char account_name [25];
@@ -15,8 +18,8 @@ struct struct_cuenta {
     }; typedef struct struct_cuenta CUENTA;
 
 void print (CUENTA *cuenta) {
-    printf("%d\t", cuenta->id);
-    printf("%s\t", cuenta->account_name);
+    printf("%d\t\t", cuenta->id);
+    printf("%s\t\t", cuenta->account_name);
     printf("(%d)\n", cuenta->balance);
 } 
 
@@ -31,23 +34,26 @@ void log1 (CUENTA *current) {
     timeinfo = localtime ( &rawtime );
     fprintf (pFile,asctime (timeinfo) );
 
-    fprintf(pFile,"Cuenta de retiro: ");
-    fprintf(pFile,"%d\t", current->id);
-    fprintf(pFile,"%s\t", current->account_name);
-    fprintf(pFile,"%d\t", current->balance);
+    fprintf(pFile,"Cuenta de retiro:\n");
+    fprintf(pFile,"No.\t\tCuenta\t\tBalance\n");
+    fprintf(pFile,"%d\t\t", current->id);
+    fprintf(pFile,"%s\t\t", current->account_name);
+    fprintf(pFile,"%d\n", current->balance);
     
     fclose (pFile);           
 }
 
-void log2 (CUENTA *current) {
+int log2 (CUENTA *current) {//si la cuenta de deposito es la primera en seleccionar no imprime bien la fecha
 
     FILE *pFile;
     pFile = fopen("logs.txt" , "a");
-    fprintf(pFile,"Cuenta de deposito: ");
-    fprintf(pFile,"%d\t", current->id);
-    fprintf(pFile,"%s\t", current->account_name);
+    fprintf(pFile,"Cuenta de deposito:\n");
+    fprintf(pFile,"No.\t\tCuenta\t\tBalance\n");
+    fprintf(pFile,"%d\t\t", current->id);
+    fprintf(pFile,"%s\t\t", current->account_name);
     fprintf(pFile,"%d\n", current->balance);
-    //fprintf(pFile,"Cantidad del movimiento %d",*pqty);
+    fprintf(pFile,"Cantidad del movimiento %d \n",*pqty);
+    fprintf(pFile,"\n");
     
     fclose (pFile);           
 }
@@ -68,7 +74,7 @@ void add_account(CUENTA* current) {//Como se puede hacer que no pueda repetir el
 }
 
 void print_all(CUENTA *current) {
-    printf("No.\tCuenta\tBalance\n");
+    printf("No.\t\tCuenta\t\tBalance\n");
     while(current != NULL) {
         print(current);
         current = current->next;
@@ -107,10 +113,9 @@ void make_move(CUENTA *current){
     int source,dest;
     int updated = 0;
 
-    int qty;
-    /*int *pqty; //Declare a pointer with *
-    pqty = &qty;*/
-
+    /*int qty;
+    int *pqty = pty; //Declare a pointer with **/
+    
     printf("Quieres imrpimir todas las cuentas? s/n\n");
     scanf("%s", response);
     if (response[0] == 's'){
@@ -131,10 +136,10 @@ void make_move(CUENTA *current){
                 current->balance = current->balance + qty;
                 log2(current);
             }
-            //log(current); Solo, imprime el resultado unicamente
             updated++;
             current = current->next;
-        }while (updated < 3 && current->next !=NULL);
+        }while (updated < 3 && current->next !=NULL); 
+        //Que va a pasar cuando sean muchas cuentas?
 }
         
 

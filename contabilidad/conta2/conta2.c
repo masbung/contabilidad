@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <strings.h>
 
+//contraseña
+
 char password [10], l=' ';
 char str [10], m=' ';
 
@@ -61,7 +63,7 @@ int old_password (){
     return 0;
 }
 
-
+//contabilidad
 
 struct struct_cuenta {
         int id;
@@ -112,9 +114,13 @@ void save_all(CUENTA *current) {
 }
 
 void load_all(CUENTA *current) {
+
     FILE *pFile;
     pFile = fopen("accounts.txt" , "r");
-    fscanf(pFile,"%d\t%s\t%d\n", &current->id, current->account_name, &current->balance);
+    do{
+        fscanf(pFile,"%d\t%s\t%d\n", &current->id, current->account_name, &current->balance);
+        current = current->next;
+    }while(feof(pFile));
     fclose (pFile);
     printf("Hey\n");
     } 

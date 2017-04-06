@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <strings.h>
 #include <time.h>
+#include "password.h"
 
-//contraseña
+/*//contraseña
 
 char password [10], l=' ';
 char str [10], m=' ';
@@ -62,7 +63,7 @@ int old_password (){
     trim(str);
     compare (str, password);
     return 0;
-}
+}*/
 
 //contabilidad
 
@@ -99,22 +100,22 @@ void log2 (CUENTA *current) {
     struct tm * timeinfo;
 
     FILE *pFile;
-    pFile = fopen("logs.txt" , "w");
+    pFile = fopen("logs.txt" , "a");
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );
     fprintf (pFile,asctime (timeinfo) );
-    //do{
-        fprintf(pFile,"Cuenta de retiro: ");
-        fprintf(pFile,"%d\t", current->id);
-        fprintf(pFile,"%s\t", current->account_name);
-        fprintf(pFile,"%d\t", current->balance);
-        //fprintf(pFile,"Cantidad del movimiento %d",*pqty);
-        current = current->next;
-        fprintf(pFile,"Cuenta de deposito: ");
-        fprintf(pFile,"%d\t", current->id);
-        fprintf(pFile,"%s\t", current->account_name);
-        fprintf(pFile,"%d\n", current->balance);
-    //}while(1=1)
+
+    fprintf(pFile,"Cuenta de retiro: ");
+    fprintf(pFile,"%d\t", current->id);
+    fprintf(pFile,"%s\t", current->account_name);
+    fprintf(pFile,"%d\t", current->balance);
+    //fprintf(pFile,"Cantidad del movimiento %d",*pqty);
+    current = current->next;
+    fprintf(pFile,"Cuenta de deposito: ");
+    fprintf(pFile,"%d\t", current->id);
+    fprintf(pFile,"%s\t", current->account_name);
+    fprintf(pFile,"%d\n", current->balance);
+    
     fclose (pFile);           
 }
 

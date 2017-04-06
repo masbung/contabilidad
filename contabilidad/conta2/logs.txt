@@ -41,3 +41,12 @@ Thu Apr 06 17:47:03 2017
 Cuenta de retiro:
 No.		Cuenta		Balance
 2		Retiros		300
+Thu Apr 06 17:51:37 2017
+Cuenta de retiro:
+No.		Cuenta		Balance
+1		Retiros		50
+Cuenta de deposito:
+No.		Cuenta		Balance
+2		Retiros		350
+Cantidad del movimiento 50 
+

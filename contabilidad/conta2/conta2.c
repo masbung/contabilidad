@@ -92,12 +92,11 @@ void load_all(CUENTA *current) {
     FILE *pFile;
     pFile = fopen("accounts.txt" , "r");
     do{
-        fscanf(pFile,"%d\t%s\t%d\n", &current->id, current->account_name, &current->balance);
+        fscanf(pFile,"%d %s %d", &current->id, current->account_name, &current->balance);
         current->next = malloc(sizeof(CUENTA));
         current = current->next;
         current->next = NULL;
-        &current->id = i;
-    }while(current->next = NULL);//while(feof(pFile));
+    }while(!feof(pFile));
     fclose (pFile);
 } 
     

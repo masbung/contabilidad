@@ -4,67 +4,6 @@
 #include <time.h>
 #include "password.h"
 
-/*//contraseña
-
-char password [10], l=' ';
-char str [10], m=' ';
-
-int lenght (char *s){
-    char *start = s;
-    while (*s) s++;
-    return s - start;
-}
-
-void trim(char *s){
-    while (*s) s++; 
-    while(*s == ' ' || *s == '\0' || *s == '\n') s--;
-    *(s+1) = '\0';
-}
-
-int compare(char *s, char*t){
-    while (*s != '\0' && *t != '\0' && *s - *t == 0){
-        s++;
-        t++;
-    } return *s - *t;
-}
-
-int new_password(){
-    int i=0;
-    printf("\n Digita una contrasena [maximo 10 letras o numeros]: ");
-    while (i<=9){
-    password[i]=getch();
-    l=password[i];
-    if(l==13) break;
-    else printf("*");
-    i++;
-    }
-    password[i]='\0';
-    i=0;
-    FILE *pFile;
-    pFile = fopen("password.txt" , "w");
-    fprintf (pFile,"%s",password);
-    fclose (pFile);
-    return 0;
-}
-
-int old_password (){
-
-    int i=0;
-    printf("Contrasena?");
-    while (i<=9){
-        str[i]=getch();
-        m=str[i];
-        if(m==13) break;
-        else printf("*");
-        i++;
-    }
-    str[i]='\0';
-    i=0;
-    trim(str);
-    compare (str, password);
-    return 0;
-}*/
-
 //contabilidad
 
 struct struct_cuenta {
@@ -81,20 +20,7 @@ void print (CUENTA *cuenta) {
     printf("(%d)\n", cuenta->balance);
 } 
 
-/*void log (CUENTA *current) { // Log funcionando
-
-    FILE *pFile;
-    pFile = fopen("logs.txt" , "w");
-    while(current != NULL) {
-        fprintf(pFile,"%d\t", current->id);
-        fprintf(pFile,"%s\t", current->account_name);
-        fprintf(pFile,"%d\n", current->balance);
-        current = current->next;
-    } 
-    fclose (pFile);           
-}*/
-
-void log2 (CUENTA *current) {
+void log1 (CUENTA *current) {
 
     time_t rawtime;
     struct tm * timeinfo;
@@ -109,17 +35,24 @@ void log2 (CUENTA *current) {
     fprintf(pFile,"%d\t", current->id);
     fprintf(pFile,"%s\t", current->account_name);
     fprintf(pFile,"%d\t", current->balance);
-    //fprintf(pFile,"Cantidad del movimiento %d",*pqty);
-    current = current->next;
-    fprintf(pFile,"Cuenta de deposito: ");
-    fprintf(pFile,"%d\t", current->id);
-    fprintf(pFile,"%s\t", current->account_name);
-    fprintf(pFile,"%d\n", current->balance);
     
     fclose (pFile);           
 }
 
-void add_account(CUENTA* current) {
+void log2 (CUENTA *current) {
+
+    FILE *pFile;
+    pFile = fopen("logs.txt" , "a");
+    fprintf(pFile,"Cuenta de deposito: ");
+    fprintf(pFile,"%d\t", current->id);
+    fprintf(pFile,"%s\t", current->account_name);
+    fprintf(pFile,"%d\n", current->balance);
+    //fprintf(pFile,"Cantidad del movimiento %d",*pqty);
+    
+    fclose (pFile);           
+}
+
+void add_account(CUENTA* current) {//Como se puede hacer que no pueda repetir el ID???
     while(current->next != NULL){
         current = current->next;
     }
@@ -163,7 +96,8 @@ void load_all(CUENTA *current) {
         current->next = malloc(sizeof(CUENTA));
         current = current->next;
         current->next = NULL;
-    }while(feof(pFile));
+        &current->id = i;
+    }while(current->next = NULL);//while(feof(pFile));
     fclose (pFile);
 } 
     
@@ -182,7 +116,6 @@ void make_move(CUENTA *current){
     scanf("%s", response);
     if (response[0] == 's'){
     print_all(current);}
-    //else{
     printf("Elige el numero de cuenta de retiro: ");
     scanf("%d",&source);
     printf("Elige el numero de cuenta de deposito: ");
@@ -193,17 +126,16 @@ void make_move(CUENTA *current){
         do {
             if (current->id == source){
                 current->balance = current->balance - qty;
-                log2(current); //AQUI IMPRIME LAS DOS CUENTAS ANTES DE MOVIMIENTOS
+                log1(current);
             }
             if (current->id == dest){
                 current->balance = current->balance + qty;
+                log2(current);
             }
             //log(current); Solo, imprime el resultado unicamente
             updated++;
             current = current->next;
-            //log(current); Solo, no
         }while (updated < 3 && current->next !=NULL);
-    //}
 }
         
 

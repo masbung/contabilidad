@@ -1,5 +1,2 @@
-Primera 100
-Segunda 100
-Tercera 400
-Cuarta 400
-Quinta 500
+Thu Apr 06 14:18:15 2017
+Cuenta de retiro: 3	Tres	200	Cuenta de deposito: 4	Cuatro	400

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
-#include <time.h>
+#include <Windows.h>
 
 //contraseña
 
@@ -29,7 +29,7 @@ int compare(char *s, char*t){
 
 int new_password(){
     int i=0;
-    printf("\n Digita una contrasena [maximo 10 letras o numeros]: ");
+    printf("\n Enter the password [max length 10] : ");
     while (i<=9){
     password[i]=getch();
     l=password[i];
@@ -49,7 +49,7 @@ int new_password(){
 int old_password (){
 
     int i=0;
-    printf("Contrasena?");
+    printf("Password?");
     while (i<=9){
         str[i]=getch();
         m=str[i];
@@ -80,41 +80,27 @@ void print (CUENTA *cuenta) {
     printf("(%d)\n", cuenta->balance);
 } 
 
-/*void log (CUENTA *current) { // Log funcionando
+void log (CUENTA *current) {
+
+    //int qty;
 
     FILE *pFile;
     pFile = fopen("logs.txt" , "w");
-    while(current != NULL) {
+    SYSTEMTIME stime;
+    GetSystemTime(&stime);
+    fprintf(pFile,"%d/ %d/ %d/  ", stime.wDay, stime.wMonth, stime.wYear);
+    do {
+        fprintf(pFile,"Cuenta de retiro");
         fprintf(pFile,"%d\t", current->id);
         fprintf(pFile,"%s\t", current->account_name);
         fprintf(pFile,"%d\n", current->balance);
+        //fprintf(pFile,"Cantidad del movimiento %d",qty);
         current = current->next;
-    } 
-    fclose (pFile);           
-}*/
-
-void log2 (CUENTA *current) {
-
-    time_t rawtime;
-    struct tm * timeinfo;
-
-    FILE *pFile;
-    pFile = fopen("logs.txt" , "w");
-    time ( &rawtime );
-    timeinfo = localtime ( &rawtime );
-    fprintf (pFile,asctime (timeinfo) );
-    //do{
-        fprintf(pFile,"Cuenta de retiro: ");
-        fprintf(pFile,"%d\t", current->id);
-        fprintf(pFile,"%s\t", current->account_name);
-        fprintf(pFile,"%d\t", current->balance);
-        //fprintf(pFile,"Cantidad del movimiento %d",*pqty);
-        current = current->next;
-        fprintf(pFile,"Cuenta de deposito: ");
+        fprintf(pFile,"Cuenta de deposito");
         fprintf(pFile,"%d\t", current->id);
         fprintf(pFile,"%s\t", current->account_name);
         fprintf(pFile,"%d\n", current->balance);
-    //}while(1=1)
+    } while(1 == 1);
     fclose (pFile);           
 }
 
@@ -134,7 +120,6 @@ void add_account(CUENTA* current) {
 }
 
 void print_all(CUENTA *current) {
-    printf("No.\tCuenta\tBalance\n");
     while(current != NULL) {
         print(current);
         current = current->next;
@@ -164,46 +149,46 @@ void load_all(CUENTA *current) {
         current->next = NULL;
     }while(feof(pFile));
     fclose (pFile);
-} 
+    printf("Hey\n");
+    } 
     
 
 void make_move(CUENTA *current){ 
     
-    char response[] = "no";
-    int source,dest;
+    int source,qty,dest;
     int updated = 0;
 
-    int qty;
-    /*int *pqty; //Declare a pointer with *
-    pqty = &qty;*/
-
-    printf("Quieres imrpimir todas las cuentas? s/n\n");
-    scanf("%s", response);
-    if (response[0] == 's'){
-    print_all(current);}
-    //else{
-    printf("Elige el numero de cuenta de retiro: ");
+    printf("Elige el numero de cuenta de retiro:");
     scanf("%d",&source);
-    printf("Elige el numero de cuenta de deposito: ");
+    printf("Elige el numero de cuenta de deposito:");
     scanf("%d",&dest);
-    printf("Elige la cantidad a mover: ");
+    printf("Elige la cantidad a mover");
     scanf("%d",&qty);
     
         do {
             if (current->id == source){
                 current->balance = current->balance - qty;
-                log2(current); //AQUI IMPRIME LAS DOS CUENTAS ANTES DE MOVIMIENTOS
             }
+            
             if (current->id == dest){
                 current->balance = current->balance + qty;
             }
-            //log(current); Solo, imprime el resultado unicamente
+            log(current);
             updated++;
             current = current->next;
-            //log(current); Solo, no
         }while (updated < 3 && current->next !=NULL);
-    //}
 }
+
+/*void source(CUENTA *current){
+    int source; //destination, qty;
+    
+
+    printf("Elige el numero de cuenta de retiro:");
+    scanf("%d",&source);
+    while (current->id != source){
+        current = current->next;
+    }print(current);
+}*/
         
 
 int main() {
@@ -237,7 +222,7 @@ int main() {
                     printf("\nAccesso permitido\n\n");
             
                     do {
-                    printf("Que funcion quieres hacer?\n 1. Listar cuentas \n 2. Agregar cuentas \n 3. Realizar un movimiento \n 4. Salir del programa \n 5. Guardar \n 6. Cargar\n");
+                    printf("Que funcion quieres hacer?\n 1. Listar cuentas \n 2. Agregar cuentas \n 3. Realizar un movimiento \n 4. Salir del programa \n 5. Save \n 6. Load\n");
                     scanf("%d",&menu_option);    
                     switch (menu_option) {
                         case 1:                          
@@ -285,6 +270,3 @@ int main() {
         }while(1>2);
     }
 }
-
-
-    

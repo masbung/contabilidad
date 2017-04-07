@@ -1,18 +1,2 @@
-Fri Apr 07 11:33:31 2017
-Cuenta de deposito:
-No.		Cuenta		Balance
-1		Retiros		150
-Cuenta de retiro:
-No.		Cuenta		Balance
-4		Empresa		300
-Cantidad del movimiento 100 
-
-Fri Apr 07 11:33:52 2017
-Cuenta de retiro:
-No.		Cuenta		Balance
-2		Retiros		300
-Cuenta de deposito:
-No.		Cuenta		Balance
-3		Extras		250
-Cantidad del movimiento 50 
+Fecha       		transferencia de No. Cuenta  Balance a No. Cuenta  Balance Cantidad
 

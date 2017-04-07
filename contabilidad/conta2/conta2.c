@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
 #include <time.h>
 #include "password.h"
 
@@ -8,6 +7,9 @@
 
 int qty;
 int *pqty = &qty;
+
+int lastid;
+int *plastid = &lastid;
 
 struct struct_cuenta {
         int id;
@@ -33,6 +35,40 @@ void log1 (CUENTA *current) {
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );
     fprintf (pFile,asctime (timeinfo) );
+    fprintf(pFile,"\t\tCuenta\t\tBalance\n");
+    fprintf(pFile,"%d\t\t", current->id);
+    fprintf(pFile,"%s\t\t", current->account_name);
+    fprintf(pFile,"%d\t", current->balance);
+    
+    fclose (pFile);           
+}
+
+int log2 (CUENTA *current) {
+
+    FILE *pFile;
+    pFile = fopen("logs.txt" , "a");
+    fprintf(pFile,"Cuenta de deposito:\t");
+    fprintf(pFile,"No.\t\tCuenta\t\tBalance\t");
+    fprintf(pFile,"No.%d\t\t", current->id);
+    fprintf(pFile,"Cuenta%s\t\t", current->account_name);
+    fprintf(pFile,"Balance%d\t", current->balance);
+    fprintf(pFile,"Cantidad del movimiento %d \t",*pqty);
+    fprintf(pFile,"\n");
+    
+    fclose (pFile);
+    return 0;            
+}
+
+/*void log1 (CUENTA *current) {
+
+    time_t rawtime;
+    struct tm * timeinfo;
+
+    FILE *pFile;
+    pFile = fopen("logs.txt" , "a");
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    fprintf (pFile,asctime (timeinfo) );
     fprintf(pFile,"Cuenta de retiro:\n");
     fprintf(pFile,"No.\t\tCuenta\t\tBalance\n");
     fprintf(pFile,"%d\t\t", current->id);
@@ -40,9 +76,9 @@ void log1 (CUENTA *current) {
     fprintf(pFile,"%d\n", current->balance);
     
     fclose (pFile);           
-}
+}*/
 
-int log2 (CUENTA *current) {
+/*int log2 (CUENTA *current) {
 
     FILE *pFile;
     pFile = fopen("logs.txt" , "a");
@@ -56,7 +92,7 @@ int log2 (CUENTA *current) {
     
     fclose (pFile);
     return 0;            
-}
+}*/
 
 void log3 (CUENTA *current) {
 
@@ -94,19 +130,26 @@ int log4 (CUENTA *current) {
     return 0;           
 }
 
-void add_account(CUENTA* current) {//Como se puede hacer que no pueda repetir el ID???
-    while(current->next != NULL){
+void add_account(CUENTA* current) {
+
+    while(current->next->next->next != NULL){
         current = current->next;
     }
         printf("Dame el id de la cuenta: ");
-        scanf("%d", &current->id );
-        printf("Dame el nombre de la cuenta: ");
-        scanf("%s", current->account_name);
-        printf("Dame el balance de la cuenta: ");
-        scanf("%d", &current->balance );
-        
-        current->next = malloc(sizeof(CUENTA));    
-        current->next->next = NULL;
+        scanf("%d", &lastid);
+        if(current->id + 1 == lastid){
+            current = current->next;
+            current->next = malloc(sizeof(CUENTA));    
+            current->next->next = NULL;  
+            current->id = *plastid;  
+            printf("Dame el nombre de la cuenta: ");
+            scanf("%s", current->account_name);
+            printf("Dame el balance de la cuenta: ");
+            scanf("%d", &current->balance );
+        }        
+        else{
+            printf("Ese ID ya existe o no es el siguiente en la lista de cuentas\n");
+        }
 }
 
 void print_all(CUENTA *current) {
@@ -143,14 +186,11 @@ void load_all(CUENTA *current) {
 } 
     
 
-void make_move(CUENTA *current){ 
+void make_move(CUENTA *current){ //Que va a pasar cuando sean muchas cuentas?
     
     char response[] = "no";
     int source,dest;
     int updated = 0;
-
-    /*int qty;
-    int *pqty = pty; //Declare a pointer with **/
     
     printf("Quieres imrpimir todas las cuentas? s/n\n");
     scanf("%s", response);
@@ -176,7 +216,7 @@ void make_move(CUENTA *current){
             updated++;
             current = current->next;
         }while (updated < 5 && current->next !=NULL); 
-        //Que va a pasar cuando sean muchas cuentas?
+        //Aqui
     }
     else{
         do{
@@ -191,7 +231,7 @@ void make_move(CUENTA *current){
                 updated++;
                 current = current->next;
         }while (updated < 5 && current->next !=NULL); 
-        //Que va a pasar cuando sean muchas cuentas?
+        //Aqui
     }
 }   
 

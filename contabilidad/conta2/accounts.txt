@@ -2,5 +2,3 @@
 2	Retiros	350
 3	Extras	200
 4	Empresa	400
-3106976	0	0
-3106976		0

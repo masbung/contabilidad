@@ -40,9 +40,26 @@ int old_password (){
     compare (str, password);
 }
 
-int password_pass(){
+int password_pass1(){
     FILE * fPointer;
-    fPointer = fopen ("password.txt", "r");
+    fPointer = fopen ("password1.txt", "r");
+    while (!feof(fPointer)){
+    fgets (password, 10, fPointer);
+    }
+    old_password();
+    if (compare(str,password) == 0){
+        printf ("\nAcceso conseguido\n");
+    menu();
+    }else {
+        printf("Accesso denegado\n");
+    }
+    fclose(fPointer);
+    return 0;
+}
+
+int password_pass2(){
+    FILE * fPointer;
+    fPointer = fopen ("password2.txt", "r");
     while (!feof(fPointer)){
     fgets (password, 10, fPointer);
     }
@@ -70,7 +87,7 @@ int new_password(){
     password[i]='\0';
     i=0;
     FILE *pFile;
-    pFile = fopen("password.txt" , "w");
+    pFile = fopen("password3.txt" , "w");
     fprintf (pFile,"%s",password);
     fclose (pFile);
     return 0;
@@ -79,13 +96,19 @@ int new_password(){
 int access(){
 
     char c;
+    int user_id;
+
+    printf("ID");
+    scanf("%d", &user_id);
+
+    if (user_id == 1){
     FILE * fPointer;
-    fPointer = fopen ("password.txt","r");
+    fPointer = fopen ("password1.txt","r");
     if (fPointer != NULL){
         do{
             c = fgetc(fPointer);
             if (c != EOF && c != ' ' && c != '\n'){
-            password_pass();
+            password_pass1();
             } 
             else{
             new_password();
@@ -94,7 +117,27 @@ int access(){
     }
     fclose(fPointer);
     return 0;
+    }
+    else{
+    FILE * fPointer;
+    fPointer = fopen ("password2.txt","r");
+    if (fPointer != NULL){
+        do{
+            c = fgetc(fPointer);
+            if (c != EOF && c != ' ' && c != '\n'){
+            password_pass2();
+            } 
+            else{
+            new_password();
+            }
+        }while(1>2);
+    }
+    fclose(fPointer);
+    return 0;
+
+    }
 }
+
 
 int menu(){
     int menu_option; 

@@ -7,7 +7,7 @@
 //contabilidad
 
 int qty;
-int *pqty = &qty; //Declare a pointer with *
+int *pqty = &qty;
 
 struct struct_cuenta {
         int id;
@@ -33,7 +33,6 @@ void log1 (CUENTA *current) {
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );
     fprintf (pFile,asctime (timeinfo) );
-
     fprintf(pFile,"Cuenta de retiro:\n");
     fprintf(pFile,"No.\t\tCuenta\t\tBalance\n");
     fprintf(pFile,"%d\t\t", current->id);
@@ -43,7 +42,7 @@ void log1 (CUENTA *current) {
     fclose (pFile);           
 }
 
-int log2 (CUENTA *current) {//si la cuenta de deposito es la primera en seleccionar no imprime bien la fecha
+int log2 (CUENTA *current) {
 
     FILE *pFile;
     pFile = fopen("logs.txt" , "a");
@@ -55,7 +54,44 @@ int log2 (CUENTA *current) {//si la cuenta de deposito es la primera en seleccio
     fprintf(pFile,"Cantidad del movimiento %d \n",*pqty);
     fprintf(pFile,"\n");
     
+    fclose (pFile);
+    return 0;            
+}
+
+void log3 (CUENTA *current) {
+
+    FILE *pFile;
+    pFile = fopen("logs.txt" , "a");
+
+    fprintf(pFile,"Cuenta de retiro:\n");
+    fprintf(pFile,"No.\t\tCuenta\t\tBalance\n");
+    fprintf(pFile,"%d\t\t", current->id);
+    fprintf(pFile,"%s\t\t", current->account_name);
+    fprintf(pFile,"%d\n", current->balance);
+    fprintf(pFile,"Cantidad del movimiento %d \n",*pqty);
+    fprintf(pFile,"\n");
+    
     fclose (pFile);           
+}
+
+int log4 (CUENTA *current) {
+
+    time_t rawtime;
+    struct tm * timeinfo;
+
+    FILE *pFile;
+    pFile = fopen("logs.txt" , "a");
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    fprintf (pFile,asctime (timeinfo) );
+    fprintf(pFile,"Cuenta de deposito:\n");
+    fprintf(pFile,"No.\t\tCuenta\t\tBalance\n");
+    fprintf(pFile,"%d\t\t", current->id);
+    fprintf(pFile,"%s\t\t", current->account_name);
+    fprintf(pFile,"%d\n", current->balance);
+    
+    fclose (pFile);
+    return 0;           
 }
 
 void add_account(CUENTA* current) {//Como se puede hacer que no pueda repetir el ID???
@@ -126,7 +162,8 @@ void make_move(CUENTA *current){
     scanf("%d",&dest);
     printf("Elige la cantidad a mover: ");
     scanf("%d",&qty);
-    
+
+    if(source<dest){
         do {
             if (current->id == source){
                 current->balance = current->balance - qty;
@@ -138,10 +175,25 @@ void make_move(CUENTA *current){
             }
             updated++;
             current = current->next;
-        }while (updated < 3 && current->next !=NULL); 
+        }while (updated < 5 && current->next !=NULL); 
         //Que va a pasar cuando sean muchas cuentas?
-}
-        
+    }
+    else{
+        do{
+            if (current->id == source){
+                    current->balance = current->balance - qty;
+                    log3(current);
+                }
+                if (current->id == dest){
+                    current->balance = current->balance + qty;
+                    log4(current);
+                }
+                updated++;
+                current = current->next;
+        }while (updated < 5 && current->next !=NULL); 
+        //Que va a pasar cuando sean muchas cuentas?
+    }
+}   
 
 int main() {
 

@@ -16,7 +16,6 @@ struct struct_cuenta {
         char account_name [25];
         int balance;
         struct struct_cuenta *next;
-        struct struct_cuenta *previous;
     }; typedef struct struct_cuenta CUENTA;
 
 void print (CUENTA *cuenta) {
@@ -34,32 +33,46 @@ void log1 (CUENTA *current) {
     pFile = fopen("logs.txt" , "a");
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );
-    fprintf (pFile,asctime (timeinfo) );
-    fprintf(pFile,"\t\tCuenta\t\tBalance\n");
-    fprintf(pFile,"%d\t\t", current->id);
+    fprintf (pFile,"%s*\t\t\t\t\t\t\t%d\t\t",asctime (timeinfo),current->id);
+    //fprintf(pFile,"\t\t\t\t\t\t\t%d\t\t", current->id);
     fprintf(pFile,"%s\t\t", current->account_name);
     fprintf(pFile,"%d\t", current->balance);
     
     fclose (pFile);           
 }
 
+/*void log1 (CUENTA *current) {
+
+    time_t rawtime;
+    struct tm * timeinfo;
+
+    FILE *pFile;
+    pFile = fopen("logs.txt" , "a");
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    fprintf (pFile,asctime (timeinfo) );
+    fprintf(pFile,"*\t\t\t\t\t\t\t%d\t\t", current->id);
+    fprintf(pFile,"%s\t\t", current->account_name);
+    fprintf(pFile,"%d\t", current->balance);
+    
+    fclose (pFile);           
+}*/ //prueba temporal 
+
 int log2 (CUENTA *current) {
 
     FILE *pFile;
     pFile = fopen("logs.txt" , "a");
-    fprintf(pFile,"Cuenta de deposito:\t");
-    fprintf(pFile,"No.\t\tCuenta\t\tBalance\t");
-    fprintf(pFile,"No.%d\t\t", current->id);
-    fprintf(pFile,"Cuenta%s\t\t", current->account_name);
-    fprintf(pFile,"Balance%d\t", current->balance);
-    fprintf(pFile,"Cantidad del movimiento %d \t",*pqty);
+    fprintf(pFile,"\t\t\t\t%d\t\t", current->id);
+    fprintf(pFile,"%s\t\t", current->account_name);
+    fprintf(pFile,"%d\t", current->balance);
+    fprintf(pFile,"\t\t%d \t",*pqty);
     fprintf(pFile,"\n");
     
     fclose (pFile);
     return 0;            
 }
 
-/*void log1 (CUENTA *current) {
+/*void log1 (CUENTA *current) {//original
 
     time_t rawtime;
     struct tm * timeinfo;
@@ -78,7 +91,7 @@ int log2 (CUENTA *current) {
     fclose (pFile);           
 }*/
 
-/*int log2 (CUENTA *current) {
+/*int log2 (CUENTA *current) {//original
 
     FILE *pFile;
     pFile = fopen("logs.txt" , "a");

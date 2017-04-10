@@ -1,2 +1,4 @@
-Fecha       		transferencia de No. Cuenta  Balance a No. Cuenta  Balance Cantidad
+Fecha       				No.     Cuenta      Balance     a       No.     Cuenta      Balance     Cantidad *
 
+Mon Apr 10 12:22:31 2017
+*							2		Retiros		300					3		Extras		250			50 	

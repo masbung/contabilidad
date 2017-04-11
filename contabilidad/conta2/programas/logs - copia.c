@@ -1,21 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char day [5];
-char month [5];
-int num, hour,min,year;
-int *pnum = &num;
-int *phour = &hour;
-int *pyear = &year;
-
-struct time {
-  int hour;
-  int minute;
-  int second;
-};
-
-struct time when;
-
 struct struct_cuenta {
         int id;
         int id2;
@@ -24,25 +9,48 @@ struct struct_cuenta {
         int balance;
         int balance2;
         int move;
+
+        char day [5];
+        char month [5];
+        int num;
+        int year;
+        int hour;
+        int minute;
+        int second;
+
         struct struct_cuenta *next;
     }; typedef struct struct_cuenta CUENTA;
 void print (CUENTA *cuenta) {
-    printf("%d\t\t", cuenta->id);
-    printf("%s\t\t", cuenta->account_name);
-    printf("(%d)\t\t \t", cuenta->balance);
-    printf("%d\t\t", cuenta->id2);
-    printf("%s\t\t", cuenta->account_name2);
+    printf("%s ", cuenta->day);
+    printf("%s ", cuenta->month);
+    printf("%d ", cuenta->num);
+    printf("%02d:", cuenta->hour);
+    printf("%02d:", cuenta->minute);
+    printf("%02d ", cuenta->second);
+    printf("%d\t", cuenta->year);
+    printf("%d\t", cuenta->id);
+    printf("%s\t", cuenta->account_name);
+    printf("(%d)\t  \t ", cuenta->balance);
+    printf("%d\t", cuenta->id2);
+    printf("%s\t", cuenta->account_name2);
     printf("(%d)\t", cuenta->balance2);
     printf("    %d\n", cuenta->move);
 } 
 
-void print_all(CUENTA *current) {
-    printf("No.\t\tCuenta\t\tBalance\t\ta\tNo.\t\tCuenta\t\tBalance\tMovimiento\n");
-    printf("%s %s %d %d:%d:%d %d\n",day, month, *pnum, when.hour, when.minute, when.second, *pyear);
+/*void print_all(CUENTA *current) {
+    printf("Date\t\t\t\tNo.\tCuenta\tBalance\t a \t No.\tCuenta\tBalance\tMovimiento\n");
     while(current != NULL) {
         print(current);
         current = current->next;
     }
+}*/
+
+void print_all(CUENTA *current) {
+    printf("Date\t\t\t\tNo.\tCuenta\tBalance\t a \t No.\tCuenta\tBalance\tMovimiento\n");
+    do{
+        print(current);
+        current = current->next;
+    }while(current != NULL);
 }
 
 void print_select(CUENTA *current) {
@@ -51,7 +59,7 @@ void print_select(CUENTA *current) {
 
     printf("Cuenta que quieras saber sus movimientos\n");
     scanf("%d", &id_account);
-    printf("No.\t\tCuenta\t\tBalance\t\ta\tNo.\t\tCuenta\t\tBalance\t\tMovimiento\n");
+    printf("Date\t\t\t\tNo.\tCuenta\tBalance\t a \t No.\tCuenta\tBalance\tMovimiento\n");
     do{
         if (id_account == current->id || id_account == current->id2){
             print(current);
@@ -68,7 +76,7 @@ void load_logs(CUENTA *current) {
     if(pFile != NULL) {
         do {
             
-            fscanf(pFile,"%s %s %d %02d:%02d:%02d %d %d %s %d %d %s %d %d", day, month, &num, &when.hour, &when.minute, &when.second, &year, &current->id, current->account_name, &current->balance, &current->id2, current->account_name2, &current->balance2, &current->move);
+            fscanf(pFile,"%s %s %d %02d:%02d:%02d %d %d %s %d %d %s %d %d", current->day, current->month, &current->num, &current->hour, &current->minute, &current->second, &current->year, &current->id, current->account_name, &current->balance, &current->id2, current->account_name2, &current->balance2, &current->move);
             current->next = malloc(sizeof(CUENTA));
             current = current->next;
             current->next = NULL;

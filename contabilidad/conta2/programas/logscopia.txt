@@ -1,4 +1,5 @@
-Mon Apr 10 12:22:31 2017    2		Retiros		300					3		Extras		250			50
-Mon Apr 10 12:22:31 2017    4		Retiros		400					4		Extras		500			50
-Mon Apr 10 12:22:31 2017    3		Extras		400					2		Retiros		300			150
+Tue Jan 11 09:59:21 2017
+							2		Retiros		300					3		Extras		250			50 	
+	                                                
+
 

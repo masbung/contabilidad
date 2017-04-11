@@ -1,4 +1,4 @@
-Fecha       				No.     Cuenta      Balance     a       No.     Cuenta      Balance     Cantidad *
-
-Mon Apr 10 12:22:31 2017
-*							2		Retiros		300					3		Extras		250			50 	
+Tue Apr 11 12:35:54 2017
+							2		Retiros		250					3		Extras		300			100 	
+Tue Apr 11 12:35:59 2017
+							2		Retiros		300					3		Extras		250			50 	

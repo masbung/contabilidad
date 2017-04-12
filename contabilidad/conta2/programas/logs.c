@@ -1,88 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char Month1 [12] = {'J','F','M','A','M','J','J','A','S','O','N','D'};
-char Month2 [12] = {'a','e','a','p','a','u','u','u','e','c','o','i'};
-char Month3 [12] = {'n','b','r','r','y','n','l','g','p','t','v','c'};
-
-/*
-//Te dice que mes corresponde a cada numero pero necesito "pararlo" de alguna forma
-char Jan[5] = "Jan";
-char Feb[5] = "Feb";
-char Mar[5] = "Mar";
-char Apr[5] = "Apr";
-char May[5] = "May";
-char Jun[5] = "Jun";
-char Jul[5] = "Jul";
-char Aug[5] = "Aug";
-char Sep[5] = "Sep";
-char Oct[5] = "Oct";
-char Nov[5] = "Nov";
-char Dic[5] = "Dic";*/
-
-/*void print_select_date(CUENTA *current) {
-
-    / * RANGO DE FECHAS
-    int day1, day2, month1, month2, year1, year2;
-
-    printf("Digita a partir de que fecha quieres saber los rangos en formato dia, mes año: 00/00/000 \n");
-    scanf("%02d/%02d/%04d",&day1, &month1, &year1);
-    printf("Digita hasta que fecha quieres saber los rangos en formato dia, mes año: 00/00/000 \n");
-    scanf("%02d/%02d/%04d",&day2, &month2, &year2);
-
-    printf("El rango de fecha que seleccionaste es del %d/%d/%d al %d/%d/%d \n", day1, month1, year1, day2, month2, year2 );* /
-
-
-    if (compare(Jan,current->month) == 0){
-        int compare_month1 = 1;
-        printf("%d \n",compare_month1);
-    }
-    if (compare(Feb,current->month) == 0){
-        int compare_month2 = 2;
-        printf("%d \n",compare_month2);
-    }
-    if (compare(Mar,current->month) == 0){
-        int compare_month3 = 3;
-        printf("%d \n",compare_month3);
-    }
-    if (compare(Apr,current->month) == 0){
-        int compare_month4 = 4;
-        printf("%d \n",compare_month4);
-    }
-    if (compare(May,current->month) == 0){
-        int compare_month5 = 5;
-        printf("%d \n",compare_month5);
-    }
-    if (compare(Jun,current->month) == 0){
-        int compare_month6 = 6;
-        printf("%d \n",compare_month6);
-    }
-    if (compare(Jul,current->month) == 0){
-        int compare_month7 = 7;
-        printf("%d \n",compare_month7);
-    }
-    if (compare(Aug,current->month) == 0){
-        int compare_month8 = 8;
-        printf("%d \n",compare_month8);
-    }
-    if (compare(Sep,current->month) == 0){
-        int compare_month9 = 9;
-        printf("%d \n",compare_month9);
-    }
-    if (compare(Oct,current->month) == 0){
-        int compare_month10 = 10;
-        printf("%d \n",compare_month10);
-    }
-    if (compare(Nov,current->month) == 0){
-        int compare_month11 = 11;
-        printf("%d \n",compare_month11);
-    }
-    if (compare(Dic,current->month) == 0){
-        int compare_month12 = 12;
-        printf("%d \n",compare_month12);
-    }
-
-}*/
+char ArMonth1 [12] = {'J','F','M','A','M','J','J','A','S','O','N','D'};
+char ArMonth2 [12] = {'a','e','a','p','a','u','u','u','e','c','o','i'};
+char ArMonth3 [12] = {'n','b','r','r','y','n','l','g','p','t','v','c'};
 
 struct struct_cuenta {
         int id;
@@ -106,7 +27,7 @@ struct struct_cuenta {
 void print (CUENTA *cuenta) {
     printf("%s ", cuenta->day);
     printf("%s ", cuenta->month);
-    printf("%d ", cuenta->num);
+    printf("%02d ", cuenta->num);
     printf("%02d:", cuenta->hour);
     printf("%02d:", cuenta->minute);
     printf("%02d ", cuenta->second);
@@ -119,17 +40,6 @@ void print (CUENTA *cuenta) {
     printf("(%d)\t", cuenta->balance2);
     printf("    %d\n", cuenta->move);
 }
-
-/*int compare(char *a, char *b, char *c, char *d, char *e, char *f){
-    int a,b,c = 0;
-    int i = 1;
-    while ( (a != '\0' && *d != '\0' && *a - *d == 0) && (b != '\0' && *e != '\0' && *b - *e == 0) (c != '\0' && *f != '\0' && *c - *f == 0) ){
-        a++;
-        b++;
-        c++:
-        i++;
-    } return i;
-}*/
 
 void print_all(CUENTA *current) {
     printf("Date\t\t\t\tNo.\tCuenta\tBalance\t a \t No.\tCuenta\tBalance\tMovimiento\n");
@@ -155,37 +65,153 @@ void print_select(CUENTA *current) {
 }
 
 void print_select_date(CUENTA *current) {
-    
-    int l = 0;
-    //int i = 0;
-    int a = 5;
-    int b = 5;
-    int c = 5;
 
-    //while (Month1[l] - current->month[0] == 0 && Month2[l] - current->month[1] == 0 && Month3[l] - current->month[2] == 0);
+    int l, i;
+    int day1, day2, month1, month2, year1, year2;
+    int hour1, hour2, minute1, minute2;
+    char response[] = "no";
 
-    printf("%d %d %d", a, b, c);    
-    a = Month1[l] - current->month[0];
-    b = Month2[l] - current->month[1];
-    c = Month3[l] - current->month[2];
-    printf("%d %d %d", a, b, c);
-    
-    /*int l = 0;
-    int a = 5;
-    while(l <= 3){
-        printf("%c%c%c\n",Month1[l],Month2[l],Month3[l]);
-        l++;
+    printf("Digita a partir de que fecha en formato dia/mes/año (00/00/0000) quieres saber los registros \n");
+    scanf("%02d/%02d/%04d",&day1, &month1, &year1);
+    printf("Digita hasta que fecha en formato dia/mes/año (00/00/0000) quieres saber los registros \n");
+    scanf("%02d/%02d/%04d",&day2, &month2, &year2);
+
+    printf("El rango de fecha que seleccionaste es del %d/%d/%d al %d/%d/%d \n", day1, month1, year1, day2, month2, year2 );
+
+    printf("Quieres seleccionar un rango de horas? s/n \n");
+    scanf("%s",response);
+    if (response[0] == 's') {
+        printf("Digita a partir de que hora en formato de 24 horas (00:00) quieres saber los registros? \n");
+        scanf("%02d:%02d",&hour1, &minute1);
+        printf("Digita hasta que hora en formato de 24 horas (00:00) quieres saber los registros? \n");
+        scanf("%02d:%02d",&hour2, &minute2);
+
+        if(year1 < year2){
+            printf("Date\t\t\t\tNo.\tCuenta\tBalance\t a \t No.\tCuenta\tBalance\tMovimiento\n");
+            do{
+                if(year1 <= current->year){
+                    if(year2 >= current->year){
+                        if(current->hour >= hour1 && current->hour <= hour2){                        
+                            print(current);
+                        }
+                        current = current->next;
+                    }
+                }        
+            }while(current->year == year1 || current->year == year2);
+            }
+
+        else{
+            if(month1 == month2){
+                do{
+                    l = -1;
+                    i = 0;
+                    do{
+                    l++;
+                    i++;
+                    }while ((ArMonth1[l] - current->month[0]) + (ArMonth2[l] - current->month[1]) + (ArMonth3[l] - current->month[2]) != 0);
+
+                    if (i == month1 && i == month2){
+                        if(day1 <= current->num){
+                            if(day2 >= current->num){
+                                if(current->hour >= hour1 && current->hour <= hour2){
+                                    print(current);
+                                }
+                            }
+                        }
+                    }
+                        
+                    current = current->next;
+                }while(i != month2);
+            }
+            else{
+                do{
+                    l = -1;
+                    i = 0;
+                    do{
+                    l++;
+                    i++;
+                    }while ((ArMonth1[l] - current->month[0]) + (ArMonth2[l] - current->month[1]) + (ArMonth3[l] - current->month[2]) != 0);
+
+                    if (i == month1){
+                        if(day1 <= current->num){
+                            if(current->hour >= hour1 && current->hour <= hour2){
+                                print(current);
+                            }        
+                        }
+                    }
+
+                    if (i == month2){
+                        if(day2 >= current->num){
+                            if(current->hour >= hour1 && current->hour <= hour2){
+                                print(current);
+                            }
+                        }
+                    }                
+                    current = current->next;
+                }while(current->num > day2);
+            }
+    } 
     }
-    printf("%d",l);*/
-
-    /*printf("%d\n",a);
-    a = Month1[0] - current->month[0];
-    printf("%d\n",a);*/
-
-}
-
-
     
+    if(year1 < year2){
+        printf("Date\t\t\t\tNo.\tCuenta\tBalance\t a \t No.\tCuenta\tBalance\tMovimiento\n");
+        do{
+            if(year1 <= current->year){
+                if(year2 >= current->year){
+                    print(current);
+                    current = current->next;
+                }
+            }        
+        }while(current->year == year1 || current->year == year2);
+    }
+    else{
+        if(month1 == month2){
+            printf("Date\t\t\t\tNo.\tCuenta\tBalance\t a \t No.\tCuenta\tBalance\tMovimiento\n");
+            do{
+                l = -1;
+                i = 0;
+                do{
+                l++;
+                i++;
+                }while ((ArMonth1[l] - current->month[0]) + (ArMonth2[l] - current->month[1]) + (ArMonth3[l] - current->month[2]) != 0);
+
+                if (i == month1 && i == month2){
+                    if(day1 <= current->num){
+                        if(day2 >= current->num){
+                            print(current);
+                        }
+                    }
+                }
+                    
+                current = current->next;
+            }while(current != NULL);
+        }
+        else{
+            do{
+                l = -1;
+                i = 0;
+                do{
+                l++;
+                i++;
+                }while ((ArMonth1[l] - current->month[0]) + (ArMonth2[l] - current->month[1]) + (ArMonth3[l] - current->month[2]) != 0);
+
+                if (i == month1){
+                    if(day1 <= current->num){
+                            print(current);        
+                    }
+                }
+
+                if (i == month2){
+                    if(day2 >= current->num){
+                            print(current);
+                    }
+                }                
+                current = current->next;
+            }while(current != NULL);
+        }
+    }    
+}
+  
 void load_logs(CUENTA *current) {
     FILE *pFile;
     pFile = fopen("logscopia.txt" , "r"); 

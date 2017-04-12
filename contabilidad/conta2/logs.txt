@@ -1,4 +1,52 @@
-Tue Apr 11 12:35:54 2017
-							2		Retiros		250					3		Extras		300			100 	
-Tue Apr 11 12:35:59 2017
+Tue Feb 11 09:59:21 2017
+							2		Retiros		300					3		Extras		250			50 
+Tue Feb 12 09:00:21 2017
+							2		Retiros		300					3		Extras		250			50
+Tue Feb 12 10:00:21 2017
+							2		Retiros		300					3		Extras		250			50
+Tue Feb 12 10:30:21 2017
+							2		Retiros		300					3		Extras		250			50
+Tue Feb 12 13:15:21 2017
+							2		Retiros		300					3		Extras		250			50																					
+Tue Feb 13 09:40:21 2017
+							2		Retiros		300					3		Extras		250			5
+Tue Feb 13 10:15:21 2017
+							2		Retiros		300					3		Extras		250			5
+Tue Feb 13 14:00:21 2017
+							4		Retiros		300					3		Extras		250			5
+Tue Feb 13 15:20:21 2017
+							2		Retiros		300					3		Extras		250			5																					
+Tue Feb 14 10:00:21 2017
+							2		Retiros		300					3		Extras		250			50
+Tue Feb 15 10:00:21 2017
+							2		Retiros		300					3		Extras		250			50
+Tue Feb 15 11:00:21 2017
+							2		Retiros		300					4		Extras		250			50
+Tue Feb 15 12:00:21 2017
+							2		Retiros		300					3		Extras		250			50
+Tue Feb 15 14:00:21 2017
+							2		Retiros		300					3		Extras		250			50																					  							 															  							 								
+Tue Mar 01 09:59:21 2017
+							2		Retiros		300					3		Extras		250			50  							 	
+Tue Mar 05 09:59:21 2017
+							2		Retiros		300					3		Extras		250			50
+Tue Mar 05 11:59:21 2017
+							2		Retiros		300					3		Extras		250			50
+Tue Mar 05 12:59:21 2017
+							2		Retiros		300					3		Extras		250			50
+Tue Mar 05 14:59:21 2017
+							2		Retiros		300					3		Extras		250			50																					  							 								                                                
+Tue Mar 06 09:59:21 2017
+							2		Retiros		300					3		Extras		250			50  							 	
+Tue Mar 10 09:59:21 2019
+							2		Retiros		300					3		Extras		250			50
+Tue Mar 11 09:59:21 2019
+							2		Retiros		300					3		Extras		250			50
+Tue Mar 11 10:59:21 2019
+							2		Retiros		300					3		Extras		250			50
+Tue Mar 11 12:59:21 2019
+							2		Retiros		300					3		Extras		250			50
+Tue Mar 12 09:59:21 2019
+							2		Retiros		300					3		Extras		250			50
+Wed Apr 12 17:21:40 2017
 							2		Retiros		300					3		Extras		250			50 	

@@ -1,4 +1,0 @@
-1	insurance	1
-2	cash-acc	2
-3	liab-acc	2
-4	othe-acc	2

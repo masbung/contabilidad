@@ -1,17 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <conio.h>
 #include <time.h>
 
+//loadl_all2
 #define IN 1 /* inside a word */
 #define OUT 0 /* outside a word */
+int k,nl, nw, nc, state, nm, as, ast, yz, q, stop, stop2, cuentas, z, z2, z3, v;
+int countArray[1][50];
+int countArray2[1][50];
 
+//print2
+int v2, y3, stop3, q3;
+
+//add_account
 int lastid;
 int *plastid = &lastid;
 
-int a=1,b=1,c=2,j=0,d=1,f=0,i=0;
+//journal
+int a=1, b=1, c=2, j=0, d=1, f=0, i=0;
 char comment[100];
-int sourceArray [1][5];
-int amountArray [50][2];
+int sourceArray[1][5];
+int amountArray[50][2];
 
 //account.txt
 
@@ -19,7 +30,7 @@ struct struct_account {
         int id;
         char account_name [25];
         int account_type;
-        int balanceArray [50][2];
+        int balanceArray [100][2];
 
         char day [5];
         char month [5];
@@ -93,72 +104,104 @@ void add_account(ACCOUNT* current) {
 
 
 
-//accounts.txt2
+//journal.txt
 
-void load_all2(ACCOUNT *current) {//balanceArray
+void load_all2(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE LAS OTRAS
+    char aster[5];
 
-    int c ,nl, nw, nc, state, nm, as = 1;
-    int countArray [1][50];
+    //int h;
+    int nl = nw = nc = nm = ast = stop = stop2 = 0;
+    as = 1;
     state = OUT;
-    nl = nw = nc = nm = 0;
-    //int stop = 0;
-    //int q = 0;
-    //char ast[] = "un";
 
     FILE *pFile;
-    pFile = fopen("accounts2.txt" , "r");
-    do{
-        c = getchar();
+    pFile = fopen("journal.txt" , "r");
+    while((k = fgetc(pFile)) != EOF){
         ++nc;
-        if (c == '\n')
+        if (k == '\n')
             ++nl;
-        if (c == ' ' || c == '\n' || c == '\t'){
+        if (k == ' ' || k == '\n' || k == '\t'){
             state = OUT;
             ++nm;
         }
-        if (c == '*'){
-                countArray[1][as] = nl - as;
-                as++;
-                nl = 0;
+        if (k == '*'){
+            countArray[1][as] = nl;
+            as++;
+            ast++;
             }
         else if (state == OUT) {
             state = IN;
             ++nw;
         }
-    }while(!feof(pFile));
-    /*do{
+    }
+    
+    //Asigar valores
+    nw = nw - 1;
+    nw = nw - ast;
+    cuentas = nm - nw;
+    z = 1;
+    z2 = 2;
+    countArray2[1][1] = countArray[1][1] - 1;
+    do{
+        countArray2[1][z2] = countArray[1][z2] - countArray[1][z] - 2;
+        z++;
+        z2++;
+        stop2++;
+    }while(stop2 != cuentas);
+    fclose (pFile);
+
+    pFile = fopen("journal.txt" , "r");
+    do{
+        v = 1;
+        z3 = countArray2[1][v];
         fscanf(pFile,"%d %s %d", &current->id, current->account_name, &current->account_type);
+        stop = 0;
+        q = 0;
         do{
             fscanf(pFile,"%d %d", &current->balanceArray[q][1], &current->balanceArray[q][2]);
             q++;
             stop++;
-        }while(stop == countArray[1][as]);
-        fscanf(pFile,"%s", ast);
+        }while(stop != z3);
+        v++;
+        fscanf(pFile,"%s", aster);
         current->next = malloc(sizeof(ACCOUNT));
         current = current->next;
         current->next = NULL;
-    }while(!feof(pFile));*/
-    fclose (pFile);
-    printf("Lineas: %d\nPalabras: %d\nCaracteres: %d\nState: %d\nTab, blanks y lineas: %d\nCount Array 1: %d\nCount Array 2: %d\n", nl, nw, nc, state, nm, countArray[1][1], countArray[1][2]);
+    }while(!feof(pFile));
 
+    fclose (pFile);
+
+    printf("Lineas: %d\nPalabras: %d\nCaracteres: %d\nState: %d\nTab, blanks y lineas: %d\nCuentas: %d\nCount Array 1: %d\nCount Array 2: %d\nCount Array 3: %d\nCount Array 4: %d\nCount Array 5: %d\n", nl, nw, nc, state, nm, cuentas, countArray2[1][1], countArray2[1][2], countArray2[1][3],countArray2[1][4], countArray2[1][5]);
+    //printf("Lineas: %d\nPalabras: %d\nCaracteres: %d\nState: %d\nTab, blanks y lineas: %d\nCount Array 1: %d\nCount Array 2: %d\n", nl, nw, nc, state, nm, countArray[1][1], countArray[1][2]);
 }
 
-void print2(ACCOUNT *account) {//balanceArray
+void print2(ACCOUNT *account) {
+
+    y3 = countArray2[1][v2];
+    printf("countArray2[1][%d]: %d\n",v2, y3);
     printf("%d\t", account->id);
     printf("%s\t", account->account_name);
     printf("%d\n", account->account_type);
-    printf("%d %d\n", account->balanceArray[0][1], account->balanceArray[0][2]);
-    printf("%d %d\n", account->balanceArray[1][1], account->balanceArray[1][2]);
+    stop3 = 0;
+    q3 = 0;
+    do{
+        printf("%d %d\n", account->balanceArray[q3][1], account->balanceArray[q3][2]);
+        q3++;
+        stop3++;
+    }while(stop3 != y3);
 }
 
 void print_all2(ACCOUNT *current) {
+    v2 = 1;
     printf("No.\tAccount\t\tType\n");
-    while(current != NULL) {
+    stop2 = 0;
+    do{
         print2(current);
         current = current->next;
-    }
+        stop2++;
+        v2++;
+    }while(stop2 != cuentas);
 }
-
 
 void print_journal(ACCOUNT *current) {
     a = 1;                
@@ -207,7 +250,7 @@ void journal(ACCOUNT *current) {
         scanf("%s", response);
         if (response[0] == 'y'){
             printf("Comment: \n");
-            scanf("%s",comment);
+            scanf("[]%s",comment);//Escanear comentario
             //save_journal(current);
             print_journal(current);
         }
@@ -239,7 +282,6 @@ void journal(ACCOUNT *current) {
     printf("%d\t",amountArray[1][2]);
     printf("%d\n",amountArray[1][1]);
 }*/
-
 
 
 
@@ -318,7 +360,7 @@ void journal(ACCOUNT *current) {
 
 /*void balanceArray() {//matrix ARREGLAR VARIABLES
 
-    int BalanceArray [4][4],i,j,k=1;
+    int BalanceArray [4][4],i,j,y=1;
 
     //Stored values into the array
     printf("Input elements in the matrix: \n");
@@ -331,7 +373,7 @@ void journal(ACCOUNT *current) {
     //print all 
     printf("\nThe matrix is : \n\n");
     for(j=1;j<4;j++) {
-        printf(" \t%d",k++);
+        printf(" \t%d",y++);
     }
     printf("\n");
 
@@ -356,9 +398,6 @@ void journal(ACCOUNT *current) {
     }
     printf("\n");
 }*/
-
-
-
 
 
 int main () {

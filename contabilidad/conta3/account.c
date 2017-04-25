@@ -4,24 +4,26 @@
 #include <conio.h>
 #include <time.h>
 
-//loadl_all2
+//Hacer una funcion que cargue y guarde TODO
+
+//add_acc
+int lastid;
+int *plastid = &lastid;
+
+//loadl_all_jou
 #define IN 1 /* inside a word */
 #define OUT 0 /* outside a word */
 int k,nl, nw, nc, state, nm, as, ast, yz, q, stop, stop2, cuentas, z, z2, z3, v;
 int countArray[1][50];
 int countArray2[1][50];
 
-//print2
+//print_jou
 int v2, y3, stop3, q3;
 
-//add_account
-int lastid;
-int *plastid = &lastid;
-
 //journal
-int a=1, b=1, c=2, j=0, d=1, f=0, i=0;
+int a=1, b=1, c=2, j=0, d=0, i=0;
 char comment[100];
-int sourceArray[1][5];
+int sourceArray[1][10];
 int amountArray[50][2];
 
 //account.txt
@@ -40,21 +42,21 @@ struct struct_account {
         struct struct_account *next;
     }; typedef struct struct_account ACCOUNT;
 
-void print (ACCOUNT *account) {//Print id,name and type
+void print_acc(ACCOUNT *account) {
     printf("%d\t", account->id);
     printf("%s\t", account->account_name);
     printf("%d\n", account->account_type);
 }
 
-void print_all(ACCOUNT *current) {
+void print_all_acc(ACCOUNT *current) {
     printf("No.\tAccount\t\tType\n");
     while(current != NULL) {
-        print(current);
+        print_acc(current);
         current = current->next;
     }
 }
 
-void load_all(ACCOUNT *current) {
+void load_all_acc(ACCOUNT *current) {//load all ACCOUNTS. Hacer una funcion que efectivamente cargue todo
 
     FILE *pFile;
     pFile = fopen("accounts.txt" , "r");
@@ -67,7 +69,7 @@ void load_all(ACCOUNT *current) {
     fclose (pFile);
 }
 
-void save_all(ACCOUNT *current) {
+void save_all_acc(ACCOUNT *current) {//save all ACCOUNTS. Hacer una funcion que efectivamente guarde todo
     FILE *pFile;
     pFile = fopen("accounts.txt" , "w");
     while(current != NULL) {
@@ -79,7 +81,7 @@ void save_all(ACCOUNT *current) {
     fclose (pFile);           
 }
 
-void add_account(ACCOUNT* current) {
+void add_acc(ACCOUNT* current) {
 
     while(current->next->next != NULL){
         current = current->next;
@@ -103,10 +105,9 @@ void add_account(ACCOUNT* current) {
 }
 
 
-
 //journal.txt
 
-void load_all2(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE LAS OTRAS
+void load_all_jou(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE LAS OTRAS
     char aster[5];
 
     //int h;
@@ -171,14 +172,18 @@ void load_all2(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE LAS
 
     fclose (pFile);
 
-    printf("Lineas: %d\nPalabras: %d\nCaracteres: %d\nState: %d\nTab, blanks y lineas: %d\nCuentas: %d\nCount Array 1: %d\nCount Array 2: %d\nCount Array 3: %d\nCount Array 4: %d\nCount Array 5: %d\n", nl, nw, nc, state, nm, cuentas, countArray2[1][1], countArray2[1][2], countArray2[1][3],countArray2[1][4], countArray2[1][5]);
+    /*printf("%d %d\n",current->balanceArray[0][1], current->balanceArray[0][2]);
+    printf("%d %d\n",current->balanceArray[1][1], current->balanceArray[1][2]);
+    current = current->next;
+    printf("%d %d\n",current->balanceArray[0][1], current->balanceArray[0][2]);
+    printf("%d %d\n",current->balanceArray[1][1], current->balanceArray[1][2]);*/
+    //printf("Lineas: %d\nPalabras: %d\nCaracteres: %d\nState: %d\nTab, blanks y lineas: %d\nCuentas: %d\nCount Array 1: %d\nCount Array 2: %d\nCount Array 3: %d\nCount Array 4: %d\nCount Array 5: %d\n", nl, nw, nc, state, nm, cuentas, countArray2[1][1], countArray2[1][2], countArray2[1][3],countArray2[1][4], countArray2[1][5]);
     //printf("Lineas: %d\nPalabras: %d\nCaracteres: %d\nState: %d\nTab, blanks y lineas: %d\nCount Array 1: %d\nCount Array 2: %d\n", nl, nw, nc, state, nm, countArray[1][1], countArray[1][2]);
 }
 
-void print2(ACCOUNT *account) {
+void print_jou(ACCOUNT *account) {
 
     y3 = countArray2[1][v2];
-    printf("countArray2[1][%d]: %d\n",v2, y3);
     printf("%d\t", account->id);
     printf("%s\t", account->account_name);
     printf("%d\n", account->account_type);
@@ -188,35 +193,90 @@ void print2(ACCOUNT *account) {
         printf("%d %d\n", account->balanceArray[q3][1], account->balanceArray[q3][2]);
         q3++;
         stop3++;
-    }while(stop3 != y3);
+    }while(stop3 != y3); 
 }
 
-void print_all2(ACCOUNT *current) {
+void print_all_jou(ACCOUNT *current) {
     v2 = 1;
     printf("No.\tAccount\t\tType\n");
     stop2 = 0;
     do{
-        print2(current);
+        print_jou(current);
         current = current->next;
         stop2++;
         v2++;
     }while(stop2 != cuentas);
 }
 
-void print_journal(ACCOUNT *current) {
-    a = 1;                
+void print_current_jou(ACCOUNT *current) {
+    int zz = 0;
+    int d2 = 0;
+    int c2;
+    a = 1;
+    while(sourceArray[1][d2] != current->id){
+            current = current->next;
+        }
     printf("Date\t\tDescription\t\tRef.\tDebit\tCredit \n");
-    printf("Apr %d\t\t%s  \t\t%d\t%d\n",19,current->account_name,current->id,amountArray[a][b]);
-                
-    do{ 
-        a++;                 
+    printf("Apr %d\t\t%s  \t\t%d\t%d\n",19,current->account_name,current->id,amountArray[a][1]);
+    c2 = d - 1;
+    printf("c2: %d\n",c2);
+    printf("d: %d\n",d);
+    do{
+        d2++;
+        load_all_jou(current);
+        while(sourceArray[1][d2] != current->id){
+            current = current->next;
+        }
+        a++;
+        zz++;                 
+        printf("      \t\t\t%s\t%d\t\t%d\n",current->account_name,current->id,amountArray[a][1]);               
         current = current->next;
-        printf("      \t\t\t%s\t%d\t\t%d\n",current->account_name,current->id,amountArray[a][b]);                    
-    } while(a != f);
-    printf("\t\t%s\n",comment);        
+    } while(zz != c2);    
 }
 
-void journal(ACCOUNT *current) { 
+
+/*void save_all_jou(ACCOUNT *current) {//Add operations made in the Journal to accounts
+
+    //Numero de cuenta de debito mayor que credito 
+    / *printf("%d %s %d \n",current->id,current->account_name,current->account_type);
+    printf("%d\t",current->balanceArray[0][1]);
+    printf("%d\n",current->balanceArray[0][2]);
+    printf("%d\t",current->balanceArray[1][1]);
+    printf("%d\n",current->balanceArray[1][2]);
+    printf("%d\t",amountArray[2][2]);
+    printf("%d\n",amountArray[2][1]);
+    printf("%d\t",amountArray[3][2]);
+    printf("%d\n",amountArray[3][1]);
+    printf("*\n");
+    current = current->next;
+    printf("%d %s %d \n",current->id,current->account_name,current->account_type);       
+    printf("%d\t",current->balanceArray[0][1]);
+    printf("%d\n",current->balanceArray[0][2]);
+    printf("%d\t",amountArray[1][1]);
+    printf("%d\n",amountArray[1][2]);
+    printf("*\n");* /
+
+    //Numero de cuenta de debito menor que credito 
+    / *printf("%d %s %d \n",current->id,current->account_name,current->account_type);
+    printf("%d\t",current->balanceArray[0][1]);
+    printf("%d\n",current->balanceArray[0][2]);
+    printf("%d\t",current->balanceArray[1][1]);
+    printf("%d\n",current->balanceArray[1][2]);
+    printf("%d\t",amountArray[2][1]);
+    printf("%d\n",amountArray[2][2]);
+    printf("%d\t",amountArray[3][1]);
+    printf("%d\n",amountArray[3][2]);
+    printf("*\n");
+    current = current->next;
+    printf("%d %s %d \n",current->id,current->account_name,current->account_type);       
+    printf("%d\t",current->balanceArray[0][1]);
+    printf("%d\n",current->balanceArray[0][2]);
+    printf("%d\t",amountArray[1][1]);
+    printf("%d\n",amountArray[1][2]);
+    printf("*\n"); * /
+}*/
+
+void journal(ACCOUNT *current) {
 
     char response[] = "no";
 
@@ -224,7 +284,7 @@ void journal(ACCOUNT *current) {
         printf("Do you want to print all accounts? y/n\n");
         scanf("%s", response);
         if (response[0] == 'y'){
-            print_all(current);
+            print_all_acc(current);
         }
         printf("Select the debit account number: \n");
         scanf("%d",&sourceArray[1][d]);
@@ -244,47 +304,23 @@ void journal(ACCOUNT *current) {
             printf("Enter another credit account? y/n\n");
             scanf("%s", response);
         }while(response[0] == 'y');
-        f = sourceArray[1][d];
+        //HACER UN VALOR QUE SEA IGUAL A D
         
         printf("Do you want to add a comment? y/n\n");
         scanf("%s", response);
         if (response[0] == 'y'){
             printf("Comment: \n");
-            scanf("[]%s",comment);//Escanear comentario
-            //save_journal(current);
-            print_journal(current);
+            scanf("%s",comment);//Escanear comentario
+            print_current_jou(current);
         }
         
         else{
-            //save_journal(current);
-            print_journal(current);
+            print_current_jou(current);
         }
         printf("Do you want to make another log?? y/n\n");
         scanf("%s", response);
     }while(response[0] == 'y');
 }
-
-/*void save_journal(ACCOUNT *current) {//Add operations made in the Journal to accounts
-
-    printf("%d %s %d \n",current->id,current->account_name,current->account_type);
-    printf("%d\t",current->balanceArray[0][1]);
-    printf("%d\n",current->balanceArray[0][2]);
-    printf("%d\t",current->balanceArray[1][1]);
-    printf("%d\n",current->balanceArray[1][2]);
-    printf("%d\t",amountArray[1][1]);
-    printf("%d\n",amountArray[1][2]);
-    current = current->next;
-    printf("%d %s %d \n",current->id,current->account_name,current->account_type);       
-    printf("%d\t",current->balanceArray[0][1]);
-    printf("%d\n",current->balanceArray[0][2]);
-    printf("%d\t",current->balanceArray[1][1]);
-    printf("%d\n",current->balanceArray[1][2]);
-    printf("%d\t",amountArray[1][2]);
-    printf("%d\n",amountArray[1][1]);
-}*/
-
-
-
 
 /*void make_move(ACCOUNT *current){//Debit or credit logic 
     
@@ -295,7 +331,7 @@ void journal(ACCOUNT *current) {
     printf("Do you want to print all accounts? y/n\n");
     scanf("%s", response);
     if (response[0] == 'y'){
-        print_all(current);
+        print_all_acc(current);
     }
     printf("Choose account number: \n");
     scanf("%d",&source);
@@ -316,7 +352,7 @@ void journal(ACCOUNT *current) {
     
         do{
             if(source == current->id){
-                print(current);
+                print_acc(current);
             }
             current = current->next;
         }while(source == current->id);
@@ -343,7 +379,7 @@ void journal(ACCOUNT *current) {
 
         do{
             if(source == current->id){
-                print(current);
+                print_acc(current);
             }
             current = current->next;
         }while(source == current->id);
@@ -357,6 +393,7 @@ void journal(ACCOUNT *current) {
     }
 }*/ 
 //Este lo mas seguro es que se elimine por que todo debe de ser directo del Journal
+
 
 /*void balanceArray() {//matrix ARREGLAR VARIABLES
 
@@ -412,18 +449,18 @@ int main () {
     int menu_option;
 
     do {
-        printf("Which function do want to do?\n 1. Load \n 2. Print all \n 3. Add account \n 4. Journal \n 5. Load all 2 \n 6. Print all 2 \n 9. Save \n 10. Exit \n");
+        printf("Which function do want to do?\n 1. Load accounts \n 2. Print all accounts \n 3. Add account \n 4. Journal \n 5. Load journal \n 6. Print all journal \n 9. Save \n 10. Exit \n");
         scanf("%d",&menu_option);    
         switch (menu_option) {
             case 1:
-                load_all(current);                                             
+                load_all_acc(current);                                             
                 break; 
             case 2:                          
-                print_all(current);             
+                print_all_acc(current);             
                 break;
             case 3:                          
                 do {
-                    add_account(current);        
+                    add_acc(current);        
                     printf("Add other (y/n) \n");
                     scanf("%s", response);
                     if (response[0] == 'y') {
@@ -434,13 +471,13 @@ int main () {
                 journal(current);            
                 break;
             case 5:                          
-                load_all2(current);            
+                load_all_jou(current);            
                 break;
             case 6:                          
-                print_all2(current);           
+                print_all_jou(current);           
                 break;
             case 9:                          
-                save_all(current);            
+                save_all_acc(current);            
                 break;
             case 10:
                 printf("Thank you...\n");

@@ -21,10 +21,10 @@ int countArray2[1][50];
 int v2, y3, stop3, q3;
 
 //journal
-int a=1, b=1, c=2, j=0, d=0, i=0;
-char comment[100];
+int a=1, b=1, c=2, j=0, d=1, i=0;
+char comment[30];
 int sourceArray[1][10];
-int amountArray[50][2];
+int amountArray[20][2];
 
 //account.txt
 
@@ -104,7 +104,6 @@ void add_acc(ACCOUNT* current) {
         }
 }
 
-
 //journal.txt
 
 void load_all_jou(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE LAS OTRAS
@@ -171,14 +170,6 @@ void load_all_jou(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE 
     }while(!feof(pFile));
 
     fclose (pFile);
-
-    /*printf("%d %d\n",current->balanceArray[0][1], current->balanceArray[0][2]);
-    printf("%d %d\n",current->balanceArray[1][1], current->balanceArray[1][2]);
-    current = current->next;
-    printf("%d %d\n",current->balanceArray[0][1], current->balanceArray[0][2]);
-    printf("%d %d\n",current->balanceArray[1][1], current->balanceArray[1][2]);*/
-    //printf("Lineas: %d\nPalabras: %d\nCaracteres: %d\nState: %d\nTab, blanks y lineas: %d\nCuentas: %d\nCount Array 1: %d\nCount Array 2: %d\nCount Array 3: %d\nCount Array 4: %d\nCount Array 5: %d\n", nl, nw, nc, state, nm, cuentas, countArray2[1][1], countArray2[1][2], countArray2[1][3],countArray2[1][4], countArray2[1][5]);
-    //printf("Lineas: %d\nPalabras: %d\nCaracteres: %d\nState: %d\nTab, blanks y lineas: %d\nCount Array 1: %d\nCount Array 2: %d\n", nl, nw, nc, state, nm, countArray[1][1], countArray[1][2]);
 }
 
 void print_jou(ACCOUNT *account) {
@@ -209,18 +200,14 @@ void print_all_jou(ACCOUNT *current) {
 }
 
 void print_current_jou(ACCOUNT *current) {
-    int zz = 0;
-    int d2 = 0;
-    int c2;
+    int d2 = 1;
+    int zz = 1;
     a = 1;
     while(sourceArray[1][d2] != current->id){
             current = current->next;
         }
     printf("Date\t\tDescription\t\tRef.\tDebit\tCredit \n");
     printf("Apr %d\t\t%s  \t\t%d\t%d\n",19,current->account_name,current->id,amountArray[a][1]);
-    c2 = d - 1;
-    printf("c2: %d\n",c2);
-    printf("d: %d\n",d);
     do{
         d2++;
         load_all_jou(current);
@@ -229,11 +216,12 @@ void print_current_jou(ACCOUNT *current) {
         }
         a++;
         zz++;                 
-        printf("      \t\t\t%s\t%d\t\t%d\n",current->account_name,current->id,amountArray[a][1]);               
-        current = current->next;
-    } while(zz != c2);    
+        printf("      \t\t\t%s\t%d\t\t%d\n",current->account_name,current->id,amountArray[a][1]);
+        printf("stop: %d\n",zz);   
+        printf("d: %d\n",d);
+        printf ("a: %d\n",a);
+    } while(zz != d);    
 }
-
 
 /*void save_all_jou(ACCOUNT *current) {//Add operations made in the Journal to accounts
 
@@ -304,8 +292,12 @@ void journal(ACCOUNT *current) {
             printf("Enter another credit account? y/n\n");
             scanf("%s", response);
         }while(response[0] == 'y');
-        //HACER UN VALOR QUE SEA IGUAL A D
-        
+        printf("sourceArray[1][0]: %d\n",sourceArray[1][0]);
+        printf("sourceArray[1][1]: %d\n",sourceArray[1][1]);
+        printf("sourceArray[1][2]: %d\n",sourceArray[1][2]);
+        printf("sourceArray[1][3]: %d\n",sourceArray[1][3]);
+        printf("sourceArray[1][4]: %d\n",sourceArray[1][4]);
+
         printf("Do you want to add a comment? y/n\n");
         scanf("%s", response);
         if (response[0] == 'y'){
@@ -321,6 +313,8 @@ void journal(ACCOUNT *current) {
         scanf("%s", response);
     }while(response[0] == 'y');
 }
+
+
 
 /*void make_move(ACCOUNT *current){//Debit or credit logic 
     
@@ -393,7 +387,6 @@ void journal(ACCOUNT *current) {
     }
 }*/ 
 //Este lo mas seguro es que se elimine por que todo debe de ser directo del Journal
-
 
 /*void balanceArray() {//matrix ARREGLAR VARIABLES
 

@@ -29,9 +29,6 @@ int countArray2[1][50];
 //print_led
 int ba, bb, bc;
 
-//print_all_led
-int ca = 1;
-
 //save_jou
 int da = 0;
 
@@ -200,13 +197,14 @@ void print_led(ACCOUNT *account) {
 }
 
 void print_all_led(ACCOUNT *current) {
+    ba = 1;
     printf("No.\tAccount\t\tType\n");
     stop2 = 0;
     do{
         print_led(current);
         current = current->next;
         stop2++;
-        ca++;
+        ba++;
     }while(stop2 != num_accounts);
 }
 
@@ -219,7 +217,7 @@ void save_source() {
     ee = ee + 1;
     do {
         fprintf(pFile,"%d ",sourceArray[1][a]);
-        g++;
+        a++;
     }while(a != ee);
     fclose (pFile);
 }
@@ -403,7 +401,6 @@ void journal(ACCOUNT *current) {//Scan comment with spaces
             amountArray[ea][ec] = 0;
             printf("Enter another credit account? y/n\n");
             scanf("%s", response);
-            printf("amountArray[%d][%d]: %d\n", ea, eb, amountArray[ea][eb]);
         }while(response[0] == 'y');
         save_source();
 

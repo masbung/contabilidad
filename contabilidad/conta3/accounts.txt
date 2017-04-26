@@ -1,4 +1,4 @@
 1	insurance	1
-2	cash-acc	2
-3	liab-acc	2
-4	othe-acc	1
+2	cashaccc	2
+3	liabaccc	2
+4	otheaccc	1

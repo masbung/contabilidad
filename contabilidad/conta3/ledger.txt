@@ -1,8 +1,6 @@
 1 insurance 1 
 0	0
-200	0
 *
-1 insurance 1 
+2 cashaccc 2 
 0	0
-0	100
 *

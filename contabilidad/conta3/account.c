@@ -89,7 +89,7 @@ void save_all_acc(ACCOUNT *current) {//save all ACCOUNTS. Hacer una funcion que 
     fclose (pFile);           
 }
 
-void add_acc(ACCOUNT* current) {//Done
+void add_acc(ACCOUNT* current) {//
 
     while(current->next->next != NULL){
         current = current->next;
@@ -115,7 +115,7 @@ void add_acc(ACCOUNT* current) {//Done
 
 //ledger.txt
 
-void load_all_led(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE LAS OTRAS - DONE
+void load_all_led(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE LAS OTRAS 
     
     char asterisk[5]; //asterisks in ledger 
 
@@ -178,6 +178,15 @@ void load_all_led(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE 
         current->next = NULL;
     }while(!feof(pFile));
 
+    /*printf(" k: %d\n nl: %d\n nw: %d\n nc: %d\n elt: %d\n ast: %d\n num_accounts: %d\n state: %d\n aa: %d\n ab: %d\n ac: %d\n ad: %d\n ae: %d\n af: %d\n",k,nl, nw, nc, elt, ast, num_accounts, state, aa, ab, ac, ad, ae, af);
+    printf("countArray2[1][1]: %d\n",countArray2[1][1]);
+    printf("countArray2[1][2]: %d\n",countArray2[1][2]);
+    printf("countArray2[1][3]: %d\n",countArray2[1][3]);
+    printf("countArray2[1][4]: %d\n",countArray2[1][4]);
+    printf("countArray2[1][5]: %d\n",countArray2[1][5]);
+    printf("countArray2[1][6]: %d\n",countArray2[1][6]);
+    printf("countArray2[1][7]: %d\n",countArray2[1][7]);*/
+
     fclose (pFile);
 }
 
@@ -207,6 +216,69 @@ void print_all_led(ACCOUNT *current) {
         ba++;
     }while(stop2 != num_accounts);
 }
+
+void save_all_jou(ACCOUNT *current) {
+
+    //Numero de cuenta de debito menor que credito
+    FILE *pFile;
+    pFile = fopen("ledger.txt" , "w");
+
+    int ca=0, stop3=0, cb, cc=1, cd=1;
+    cb = countArray2[1][cc];
+    fprintf(pFile,"%d %s %d \n",current->id,current->account_name,current->account_type);
+    do{
+        fprintf(pFile,"%d\t",current->balanceArray[ca][1]);
+        fprintf(pFile,"%d\n",current->balanceArray[ca][2]);
+        ca++;
+        stop3++;
+    }while(stop3 != cb);
+    fprintf(pFile,"%d\t",amountArray[cd][1]);
+    fprintf(pFile,"%d\n",amountArray[cd][2]);
+    fprintf(pFile,"*\n");
+
+    cc++;
+    cd++;
+
+    ca=0;
+    stop3=0;
+    current = current->next;
+    fprintf(pFile,"%d %s %d \n",current->id,current->account_name,current->account_type);
+    do{
+        fprintf(pFile,"%d\t",current->balanceArray[ca][1]);
+        fprintf(pFile,"%d\n",current->balanceArray[ca][2]);
+        ca++;
+        stop3++;
+    }while(stop3 != cb);
+    fprintf(pFile,"%d\t",amountArray[cd][2]);
+    fprintf(pFile,"%d\n",amountArray[cd][1]);
+    cd++;
+    fprintf(pFile,"%d\t",amountArray[cd][2]);
+    fprintf(pFile,"%d\n",amountArray[cd][1]);
+    fprintf(pFile,"*\n");
+
+    fclose (pFile);
+
+    /*
+    //Numero de cuenta de debito mayor que credito 
+    / *printf("%d %s %d \n",current->id,current->account_name,current->account_type);
+    printf("%d\t",current->balanceArray[0][1]);
+    printf("%d\n",current->balanceArray[0][2]);
+    printf("%d\t",current->balanceArray[1][1]);
+    printf("%d\n",current->balanceArray[1][2]);
+    printf("%d\t",amountArray[2][2]);
+    printf("%d\n",amountArray[2][1]);
+    printf("%d\t",amountArray[3][2]);
+    printf("%d\n",amountArray[3][1]);
+    printf("*\n");
+    current = current->next;
+    printf("%d %s %d \n",current->id,current->account_name,current->account_type);       
+    printf("%d\t",current->balanceArray[0][1]);
+    printf("%d\n",current->balanceArray[0][2]);
+    printf("%d\t",amountArray[1][1]);
+    printf("%d\n",amountArray[1][2]);
+    printf("*\n");* / 
+    */
+} //Cambia el nombre de la segunda cuenta al momento de meter dos entradas en el credito
 
 //Extras 
 
@@ -263,50 +335,6 @@ void save_journal_count() {
 //Load and print all journal
 
 /*Add operations made in the Journal to accounts*/
-void save_all_jou(ACCOUNT *current) {
-
-    FILE *pFile;
-    pFile = fopen("ledger.txt" , "w");
-    //Numero de cuenta de debito menor que credito 
-    fprintf(pFile,"%d %s %d \n",current->id,current->account_name,current->account_type);
-    fprintf(pFile,"%d\t",current->balanceArray[0][1]);
-    fprintf(pFile,"%d\n",current->balanceArray[0][2]);
-    fprintf(pFile,"%d\t",amountArray[1][1]);
-    fprintf(pFile,"%d\n",amountArray[1][2]);
-    fprintf(pFile,"*\n");
-
-    current = current->next;
-
-    fprintf(pFile,"%d %s %d \n",current->id,current->account_name,current->account_type);       
-    fprintf(pFile,"%d\t",current->balanceArray[0][1]);
-    fprintf(pFile,"%d\n",current->balanceArray[0][2]);
-    fprintf(pFile,"%d\t",amountArray[2][2]);
-    fprintf(pFile,"%d\n",amountArray[2][1]);
-    fprintf(pFile,"*\n");
-
-    fclose (pFile); 
-
-    /*
-    //Numero de cuenta de debito mayor que credito 
-    / *printf("%d %s %d \n",current->id,current->account_name,current->account_type);
-    printf("%d\t",current->balanceArray[0][1]);
-    printf("%d\n",current->balanceArray[0][2]);
-    printf("%d\t",current->balanceArray[1][1]);
-    printf("%d\n",current->balanceArray[1][2]);
-    printf("%d\t",amountArray[2][2]);
-    printf("%d\n",amountArray[2][1]);
-    printf("%d\t",amountArray[3][2]);
-    printf("%d\n",amountArray[3][1]);
-    printf("*\n");
-    current = current->next;
-    printf("%d %s %d \n",current->id,current->account_name,current->account_type);       
-    printf("%d\t",current->balanceArray[0][1]);
-    printf("%d\n",current->balanceArray[0][2]);
-    printf("%d\t",amountArray[1][1]);
-    printf("%d\n",amountArray[1][2]);
-    printf("*\n");* / 
-    */
-}
 
 void print_current_jou(ACCOUNT *current) {
 
@@ -370,7 +398,7 @@ void save_jou(ACCOUNT *current) {
     save_journal_count();
 
     fclose (pFile);    
-}
+} //cambiar a save_current_jou
 
 void journal(ACCOUNT *current) {//Scan comment with spaces 
 
@@ -399,6 +427,7 @@ void journal(ACCOUNT *current) {//Scan comment with spaces
             printf("Enter amount: ");
             scanf("%d",&amountArray[ea][eb]); 
             amountArray[ea][ec] = 0;
+            printf("amountArray[%d][%d]: %d\n", ea, eb, amountArray[ea][eb]);
             printf("Enter another credit account? y/n\n");
             scanf("%s", response);
         }while(response[0] == 'y');

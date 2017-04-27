@@ -11,7 +11,7 @@ int jou_count = 0;
 int lastid;
 int *plastid = &lastid;
 
-//Journal, print_current_jou, save_jou 
+//Journal, print_current_jou, save_current_jou 
 int fa = 0;
 //print_current_jou
 int fb = 0;
@@ -29,11 +29,8 @@ int countArray2[1][50];
 //print_led
 int ba, bb, bc;
 
-//save_jou
-int da = 0;
-
 //journal
-int ea=0, eb=1, ec=2, ed=0, ee=0;
+int ea=0, eb=1, ec=2, ed=0, ee=0, ef;
 char comment[30];
 int sourceArray[1][40]; //Account number 
 int amountArray[50][2]; //Amount of move in journal
@@ -44,8 +41,16 @@ struct struct_account {
         int id;
         char account_name [25];
         int account_type;
-        int jou_count;
         int balanceArray [100][2];
+        int jou_count2;
+        //date
+        char day[5];
+        char month[5]
+        int num_day
+        int hour
+        int min 
+        int sec
+        int year
 
         struct struct_account *next;
     }; typedef struct struct_account ACCOUNT;
@@ -114,6 +119,14 @@ void add_acc(ACCOUNT* current) {//
 
 
 //ledger.txt
+
+/*void load_led() {
+
+    FILE *pFile;
+    pFile = fopen("ledger2.txt" , "r");
+    fscanf(pFile,"%d",&zzzz);
+    fclose (pFile);
+}*/
 
 void load_all_led(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE LAS OTRAS 
     
@@ -217,69 +230,6 @@ void print_all_led(ACCOUNT *current) {
     }while(stop2 != num_accounts);
 }
 
-void save_all_jou(ACCOUNT *current) {
-
-    //Numero de cuenta de debito menor que credito
-    FILE *pFile;
-    pFile = fopen("ledger.txt" , "w");
-
-    int ca=0, stop3=0, cb, cc=1, cd=1;
-    cb = countArray2[1][cc];
-    fprintf(pFile,"%d %s %d \n",current->id,current->account_name,current->account_type);
-    do{
-        fprintf(pFile,"%d\t",current->balanceArray[ca][1]);
-        fprintf(pFile,"%d\n",current->balanceArray[ca][2]);
-        ca++;
-        stop3++;
-    }while(stop3 != cb);
-    fprintf(pFile,"%d\t",amountArray[cd][1]);
-    fprintf(pFile,"%d\n",amountArray[cd][2]);
-    fprintf(pFile,"*\n");
-
-    cc++;
-    cd++;
-
-    ca=0;
-    stop3=0;
-    current = current->next;
-    fprintf(pFile,"%d %s %d \n",current->id,current->account_name,current->account_type);
-    do{
-        fprintf(pFile,"%d\t",current->balanceArray[ca][1]);
-        fprintf(pFile,"%d\n",current->balanceArray[ca][2]);
-        ca++;
-        stop3++;
-    }while(stop3 != cb);
-    fprintf(pFile,"%d\t",amountArray[cd][2]);
-    fprintf(pFile,"%d\n",amountArray[cd][1]);
-    cd++;
-    fprintf(pFile,"%d\t",amountArray[cd][2]);
-    fprintf(pFile,"%d\n",amountArray[cd][1]);
-    fprintf(pFile,"*\n");
-
-    fclose (pFile);
-
-    /*
-    //Numero de cuenta de debito mayor que credito 
-    / *printf("%d %s %d \n",current->id,current->account_name,current->account_type);
-    printf("%d\t",current->balanceArray[0][1]);
-    printf("%d\n",current->balanceArray[0][2]);
-    printf("%d\t",current->balanceArray[1][1]);
-    printf("%d\n",current->balanceArray[1][2]);
-    printf("%d\t",amountArray[2][2]);
-    printf("%d\n",amountArray[2][1]);
-    printf("%d\t",amountArray[3][2]);
-    printf("%d\n",amountArray[3][1]);
-    printf("*\n");
-    current = current->next;
-    printf("%d %s %d \n",current->id,current->account_name,current->account_type);       
-    printf("%d\t",current->balanceArray[0][1]);
-    printf("%d\n",current->balanceArray[0][2]);
-    printf("%d\t",amountArray[1][1]);
-    printf("%d\n",amountArray[1][2]);
-    printf("*\n");* / 
-    */
-} //Cambia el nombre de la segunda cuenta al momento de meter dos entradas en el credito
-
 //Extras 
 
 void save_source() {
@@ -336,6 +286,28 @@ void save_journal_count() {
 
 /*Add operations made in the Journal to accounts*/
 
+void load_jou(ACCOUNT *current) {
+    //Date						Description		Acc.	Debit	Credit	Ref.
+    char date_j[15];
+    char description_j[15];
+    char acc_j[15];
+    char debit_j[15];
+    char credit_j[15];
+    char ref_j[15];
+
+    FILE *pFile;
+
+    pFile = fopen("journal.txt" , "r");
+
+    fscanf("%s %s %s %s %s", date_j,description_j,acc_j, debit_j, credit_j, ref_j);
+    fscanf(pFile"%s %s %d %d %d %d %d", current->month, current->day, &current->num_day, &current->hour, &current->min, &current->second, &current->year);
+    fscanf("%s %d %d %d",account_name, current->id, current->balance[0][1], current->jou_count2);
+    insurance  		1		100				29
+
+    fclose (pFile);
+    
+}
+
 void print_current_jou(ACCOUNT *current) {
 
     time_t rawtime;
@@ -364,7 +336,7 @@ void print_current_jou(ACCOUNT *current) {
     printf("      \t\t\t\t%s\n",comment);    
 }
 
-void save_jou(ACCOUNT *current) {
+void save_current_jou(ACCOUNT *current) {
 
     FILE *pFile;
     pFile = fopen("journal.txt" , "a");
@@ -375,13 +347,15 @@ void save_jou(ACCOUNT *current) {
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );
     int d2 = 0;
+    int da = 0;
     int zz = 0;
     while(sourceArray[1][d2] != current->id){
             current = current->next;
         }
     da++;
-    fprintf(pFile,"Date\t\t\t\t\t\tDescription\t\tRef.\tDebit\tCredit \n");
-    fprintf(pFile,"%s \t\t\t\t\t\t\t%s  \t\t%d\t\t%d\n",asctime (timeinfo),current->account_name,current->id,amountArray[da][1]);
+    //fprintf(pFile,"Date\t\t\t\t\t\tDescription\t\tAcc.\tDebit\tCredit\tRef.\n");
+    fprintf(pFile,"\n");
+    fprintf(pFile,"%s \t\t\t\t\t\t\t%s  \t\t%d\t\t%d\t\t\t\t%d\n",asctime (timeinfo),current->account_name,current->id,amountArray[da][1],jou_count);
     do{
         d2++;
         load_all_led(current);
@@ -398,13 +372,138 @@ void save_jou(ACCOUNT *current) {
     save_journal_count();
 
     fclose (pFile);    
-} //cambiar a save_current_jou
+}
+
+void save_all_jou(ACCOUNT *current) {//Save in ledger 
+
+    int d2;
+    int ca, stop3, cb, cc=1, cd=1, stop8=0;
+    FILE *pFile;
+
+    if( ( sourceArray[1][0] > sourceArray[1][1] && sourceArray[1][0] < sourceArray[1][2] ) || ( sourceArray[1][0] < sourceArray[1][1] && sourceArray[1][0] > sourceArray[1][2] ) ) {
+        printf("Yeah\n");
+        load_all_led(current);
+        load_source();
+        pFile = fopen("ledger.txt" , "w");
+        do{
+            ca=0;
+            stop3=0;
+            cb = countArray2[1][cc];
+            fprintf(pFile,"%d %s %d \n",current->id,current->account_name,current->account_type);
+            
+            do{
+                fprintf(pFile,"%d\t",current->balanceArray[ca][1]);
+                fprintf(pFile,"%d\n",current->balanceArray[ca][2]);
+                ca++;
+                stop3++;
+            }while(stop3 != cb);
+            
+            if(current->id == sourceArray[1][0]){
+                fprintf(pFile,"%d\t",amountArray[1][1]);
+                fprintf(pFile,"%d\n",amountArray[1][2]);
+            }
+            if(current->id == sourceArray[1][1]){
+                fprintf(pFile,"%d\t",amountArray[2][2]);
+                fprintf(pFile,"%d\n",amountArray[2][1]);
+            }
+            if(current->id == sourceArray[1][2]){
+                fprintf(pFile,"%d\t",amountArray[3][2]);
+                fprintf(pFile,"%d\n",amountArray[3][1]);
+            }
+            fprintf(pFile,"*\n");
+            cc++;
+            stop8++;
+            current = current->next;
+        }while(stop8 != num_accounts);
+    }
+
+    else{
+        load_all_led(current);
+        load_source();
+        pFile = fopen("ledger.txt" , "w");
+        do{
+            d2 = 0;
+            ca=0;
+            stop3=0;
+            cb = countArray2[1][cc];
+            fprintf(pFile,"%d %s %d \n",current->id,current->account_name,current->account_type);
+            
+            do{
+                fprintf(pFile,"%d\t",current->balanceArray[ca][1]);
+                fprintf(pFile,"%d\n",current->balanceArray[ca][2]);
+                ca++;
+                stop3++;
+            }while(stop3 != cb);
+
+            if(current->id == sourceArray[1][0]){
+                fprintf(pFile,"%d\t",amountArray[cd][1]);
+                fprintf(pFile,"%d\n",amountArray[cd][2]);
+                cd++;
+            }
+
+            do{
+            d2++;
+                if(current->id == sourceArray[1][d2]){
+                    fprintf(pFile,"%d\t",amountArray[cd][2]);
+                    fprintf(pFile,"%d\n",amountArray[cd][1]);
+                    cd++;
+                }
+            }while(d2 != ed);
+            fprintf(pFile,"*\n");
+            cc++;
+            stop8++;
+            current = current->next;
+        }while(stop8 != num_accounts);
+    }
+
+    fclose (pFile);
+}
+
+/*do{
+            d2 = 0;
+            ca=0;
+            stop3=0;
+            cb = countArray2[1][cc];
+            fprintf(pFile,"%d %s %d \n",current->id,current->account_name,current->account_type);
+            
+            do{
+                fprintf(pFile,"%d\t",current->balanceArray[ca][1]);
+                fprintf(pFile,"%d\n",current->balanceArray[ca][2]);
+                ca++;
+                stop3++;
+            }while(stop3 != cb);
+            
+            if(current->id == sourceArray[1][0]){
+                fprintf(pFile,"%d\t",amountArray[cd][1]);
+                fprintf(pFile,"%d\n",amountArray[cd][2]);
+                cd++;
+            }
+            d2++;
+            if(current->id == sourceArray[1][d2]){
+                fprintf(pFile,"%d\t",amountArray[cd][2]);
+                fprintf(pFile,"%d\n",amountArray[cd][1]);
+                cd++;
+            }
+            d2++;
+            if(current->id == sourceArray[1][d2]){
+                fprintf(pFile,"%d\t",amountArray[cd][2]);
+                fprintf(pFile,"%d\n",amountArray[cd][1]);
+                cd++;
+            }
+            fprintf(pFile,"*\n");
+            cc++;
+            stop4++;
+            current = current->next;
+}while(stop4 != num_accounts);*/ 
+//Cambia el nombre de la segunda cuenta al momento de meter dos entradas en el credito
+
 
 void journal(ACCOUNT *current) {//Scan comment with spaces 
 
     char response[] = "no";
 
     do{
+        ef=0;
         printf("Do you want to print all accounts? y/n\n");
         scanf("%s", response);
         if (response[0] == 'y'){
@@ -416,18 +515,18 @@ void journal(ACCOUNT *current) {//Scan comment with spaces
         printf("Enter amount: ");
         scanf("%d",&amountArray[ea][eb]);
         amountArray[ea][ec] = 0;
-        printf("amountArray[%d][%d]: %d\n", ea, eb, amountArray[ea][eb]);
+        ef++;
         do{
             ea++;
             ed++;
             ee++;
             fa++;
+            ef++;
             printf("Select the credit account number: \n");
             scanf("%d",&sourceArray[1][ee]);
             printf("Enter amount: ");
             scanf("%d",&amountArray[ea][eb]); 
             amountArray[ea][ec] = 0;
-            printf("amountArray[%d][%d]: %d\n", ea, eb, amountArray[ea][eb]);
             printf("Enter another credit account? y/n\n");
             scanf("%s", response);
         }while(response[0] == 'y');
@@ -439,22 +538,37 @@ void journal(ACCOUNT *current) {//Scan comment with spaces
             printf("Comment: \n");
             scanf("%s",comment);
             print_current_jou(current);
-            save_jou(current);
+            save_current_jou(current);
             save_all_jou(current);
         }
         
         else{
             comment[30] = ' ';
             print_current_jou(current);
-            save_jou(current);
+            save_current_jou(current);
             save_all_jou(current);
         }
         printf("Do you want to make another log?? y/n\n");
         scanf("%s", response);
         clear_source();
         ee = 0;
+        ea = 0;
         fa = 0;
+        fb = 0; 
     }while(response[0] == 'y');
+}
+
+void test(ACCOUNT *current) {
+    load_all_acc(current);
+    printf("Current id->: %d\n",current->id);
+    current->id = current->next->id;
+    printf("Current id->: %d\n",current->id);
+    current->id = current->id;
+    load_all_acc(current);
+    printf("Current id->: %d\n",current->id);
+    current = current->next;
+    printf("Current id->: %d\n",current->id);
+
 }
 
 
@@ -474,7 +588,7 @@ int main () {
     load_journal_count();
 
     do {
-        printf("Which function do want to do?\n 1. Load accounts \n 2. Print all accounts \n 3. Add account \n 4. Load ledger \n 5. Print all ledger \n 6. Load journal \n 7. Print all journal \n 8. Journal \n 9. Save accounts \n 10. Exit \n");
+        printf("Which function do want to do?\n 1. Load accounts \n 2. Print all accounts \n 3. Add account \n 4. Load ledger \n 5. Print all ledger \n 6. Test \n 7. \n 8. Journal \n 9. Save accounts \n 10. Exit \n");
         scanf("%d",&menu_option);    
         switch (menu_option) {
             case 1:
@@ -499,7 +613,7 @@ int main () {
                 print_all_led(current);           
                 break;
             case 6:                          
-                //balanceArray();           
+                test(current);
                 break;
             case 7:                          
                 //print_all_jou(current);           

@@ -37,6 +37,7 @@ char comment[30];
 int sourceArray[1][40]; //Account number 
 int amountArray[50][2]; //Amount of move in journal
 
+
 //ACCOUNTS.txt
 
 struct struct_account {
@@ -313,7 +314,6 @@ int ledger_menu(){
         } while (menu_logs != 3);
         return 0;
 }
-
 
 
 //Extras 
@@ -786,7 +786,7 @@ int journal_menu(){
 
 }*/
 
-void balanceArray() {//matrix ARREGLAR VARIABLES
+void balanceArray() {
 
     int BalanceArray5[4][4],i,j,y=1;
 
@@ -836,7 +836,6 @@ int main () {
     ACCOUNT* current = NULL;
     current = head;
 
-    //char response[] = "no";
     int menu_option;
 
     load_journal_count();

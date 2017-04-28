@@ -4,7 +4,6 @@
 *
 2 cashaccc 2 
 0	0
-0	100
 *
 3 liabaccc 3 
 0	0
@@ -14,4 +13,5 @@
 *
 5 drawcccc 5 
 0	0
+0	100
 *

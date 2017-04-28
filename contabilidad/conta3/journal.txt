@@ -1,5 +1,5 @@
 Date						Description		Acc.	Debit	Credit	Ref.
-Thu Apr 27 16:49:37 2017
- 							insurance  		1		100				29
-      							cashaccc	2				100		29
+Fri Apr 28 11:47:00 2017
+ 							insurance  		1		100				1
+      							drawcccc	5				100		1
     						

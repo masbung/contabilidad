@@ -11,7 +11,7 @@ int jou_count = 0;
 int lastid;
 int *plastid = &lastid;
 
-//Journal, print_current_jou, save_current_jou 
+//Journal, print_current_jou, save_jou 
 int fa = 0;
 //print_current_jou
 int fb = 0;
@@ -29,28 +29,38 @@ int countArray2[1][50];
 //print_led
 int ba, bb, bc;
 
+//save_current_jou
+int da = 0;
+
 //journal
 int ea=0, eb=1, ec=2, ed=0, ee=0, ef;
 char comment[30];
 int sourceArray[1][40]; //Account number 
 int amountArray[50][2]; //Amount of move in journal
 
+
+
+
 //account.txt
 
 struct struct_account {
         int id;
+        int id2;
         char account_name [25];
+        char account_name2 [25];
         int account_type;
-        int balanceArray [100][2];
+        int balanceArray[100][2];
+        int balanceArray2[100][2];
         int jou_count2;
-        //date
-        char day[5];
-        char month[5]
-        int num_day
-        int hour
-        int min 
-        int sec
-        int year
+        int jou_count3;
+
+        char month[10]; 
+        char day[10]; 
+        int num_day;
+        int hour;
+        int min; 
+        int second; 
+        int year;
 
         struct struct_account *next;
     }; typedef struct struct_account ACCOUNT;
@@ -119,14 +129,6 @@ void add_acc(ACCOUNT* current) {//
 
 
 //ledger.txt
-
-/*void load_led() {
-
-    FILE *pFile;
-    pFile = fopen("ledger2.txt" , "r");
-    fscanf(pFile,"%d",&zzzz);
-    fclose (pFile);
-}*/
 
 void load_all_led(ACCOUNT *current) {//LA CUENTA UNO DEBE DE TENER MAS LOGS QUE LAS OTRAS 
     
@@ -230,6 +232,8 @@ void print_all_led(ACCOUNT *current) {
     }while(stop2 != num_accounts);
 }
 
+
+
 //Extras 
 
 void save_source() {
@@ -282,30 +286,46 @@ void save_journal_count() {
 
 //journal.txt
 
-//Load and print all journal
-
 /*Add operations made in the Journal to accounts*/
 
 void load_jou(ACCOUNT *current) {
-    //Date						Description		Acc.	Debit	Credit	Ref.
-    char date_j[15];
-    char description_j[15];
-    char acc_j[15];
-    char debit_j[15];
-    char credit_j[15];
-    char ref_j[15];
+
+    char date_j[10];
+    char month_j[10];
+    char description_j[10];
+    char acc_j[10];
+    char debit_j[10];
+    char credit_j[10];
+    char ref_j[10];
 
     FILE *pFile;
 
     pFile = fopen("journal.txt" , "r");
 
-    fscanf("%s %s %s %s %s", date_j,description_j,acc_j, debit_j, credit_j, ref_j);
-    fscanf(pFile"%s %s %d %d %d %d %d", current->month, current->day, &current->num_day, &current->hour, &current->min, &current->second, &current->year);
-    fscanf("%s %d %d %d",account_name, current->id, current->balance[0][1], current->jou_count2);
-    insurance  		1		100				29
+    fscanf(pFile,"%s %s %s %s %s %s %s", date_j, month_j, description_j, acc_j, debit_j, credit_j, ref_j);
+    fscanf(pFile,"%s %s %d %d %d %d %d", current->month, current->day, &current->num_day, &current->hour, &current->min, &current->second, &current->year);
+    fscanf(pFile,"%s %d %d %d",current->account_name, &current->id, &current->balanceArray[0][1], &current->jou_count2);
+    fscanf(pFile,"%s %d %d %d",current->account_name2, &current->id2, &current->balanceArray2[0][2], &current->jou_count3);
 
     fclose (pFile);
     
+}
+
+void print_jou(ACCOUNT *account) {
+
+    printf("%s %s %d %d %d %d %d\n", account->month, account->day, account->num_day, account->hour, account->min, account->second, account->year);
+    printf("%s %d %d %d\n",account->account_name, account->id, account->balanceArray[0][1], account->jou_count2);
+    printf("%s %d %d %d\n",account->account_name2, account->id2, account->balanceArray2[0][2], account->jou_count3);
+}
+
+void print_jou_all(ACCOUNT *current) {
+
+    printf("Date						Description		Acc.	Debit	Credit	Ref.\n");
+    while(current != NULL) {
+        print_jou(current);
+        current = current->next;
+    }
+
 }
 
 void print_current_jou(ACCOUNT *current) {
@@ -558,7 +578,7 @@ void journal(ACCOUNT *current) {//Scan comment with spaces
     }while(response[0] == 'y');
 }
 
-void test(ACCOUNT *current) {
+/*void test(ACCOUNT *current) {
     load_all_acc(current);
     printf("Current id->: %d\n",current->id);
     current->id = current->next->id;
@@ -569,9 +589,7 @@ void test(ACCOUNT *current) {
     current = current->next;
     printf("Current id->: %d\n",current->id);
 
-}
-
-
+}*/
 
 
 int main () {
@@ -588,7 +606,7 @@ int main () {
     load_journal_count();
 
     do {
-        printf("Which function do want to do?\n 1. Load accounts \n 2. Print all accounts \n 3. Add account \n 4. Load ledger \n 5. Print all ledger \n 6. Test \n 7. \n 8. Journal \n 9. Save accounts \n 10. Exit \n");
+        printf("Which function do want to do?\n 1. Load accounts \n 2. Print all accounts \n 3. Add account \n 4. Load ledger \n 5. Print all ledger \n 6. Load journal \n 7. Print all journal \n 8. Journal \n 9. Save accounts \n 10. Exit \n");
         scanf("%d",&menu_option);    
         switch (menu_option) {
             case 1:
@@ -613,10 +631,10 @@ int main () {
                 print_all_led(current);           
                 break;
             case 6:                          
-                test(current);
+                load_jou(current);           
                 break;
             case 7:                          
-                //print_all_jou(current);           
+                print_jou_all(current);           
                 break;
             case 8:                          
                 journal(current);           

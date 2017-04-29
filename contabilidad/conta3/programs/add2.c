@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-void main()
+int main()
 {
-     int i,j,k,arr1[10][10],rsum[10],csum[10],n;
+     int i,j,arr1[10][10],rsum[10],csum[10],n;
 	 
        printf("\n\nFind the sum of rows an columns of a Matrix:\n");
        printf("-------------------------------------------\n");	 

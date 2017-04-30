@@ -1,5 +1,0 @@
-1	insurance	1
-2	cashaccc	2
-3	liabaccc	3
-4	otheaccc	4
-5	drawcccc	5

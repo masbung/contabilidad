@@ -1,0 +1,4 @@
+1	Retiros	50
+2	Retiros	350
+3	Extras	200
+4	Empresa	400

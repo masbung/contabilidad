@@ -18,14 +18,14 @@ int fb = 0;
 #define OUT 0 /* outside a word */
 // k = getc, nl = new line, nc = new character, elt = espace/line/tab, ast = number of asterisks, num_accounts = total of accounts
 int k,nl, nw, nc, elt, ast, num_accounts, state;
-int aa, ab, ac, ad, ae, af;
+int aa, ab, ac, ad, ae, af, ag;
 int arr1[30][30],csum[30];
 int stop, stop2;
 int countArray[1][50];
 int countArray2[1][50];
 
 //print_led
-int ba, bb, bc;
+int ba, bb, bc, bd;
 
 //save_current_jou
 int da = 0;

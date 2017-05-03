@@ -1,13 +1,15 @@
 1 insurance 1 
 100	0
+200	0
 *
 2 cashaccc 2 
 0	100
+0	200
 *
 3 liabaccc 3 
 0	0
 *
-4 otheaccc 4 
+4 otheaccc 1 
 0	0
 *
 5 drawcccc 5 

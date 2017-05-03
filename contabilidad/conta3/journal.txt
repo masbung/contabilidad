@@ -1,25 +1,10 @@
 Date						Description		Acc.	Debit	Credit	Ref.
-Tue May 02 23:03:35 2017
- 							insurance  		1		100				36
-      							cashaccc	2				100		36
+Wed May 03 14:11:39 2017
+ 							insurance  		1		100				1
+      							cashaccc	2				100		1
       				.
 
-Tue May 02 23:03:45 2017
- 							cashaccc  		2		200				37
-      							insurance	1				200		37
-      				.
-
-Tue May 02 23:03:57 2017
- 							drawcccc  		5		500				38
-      							insurance	1				500		38
-      				.
-
-Tue May 02 23:28:17 2017
- 							cashaccc  		2		200				39
-      							drawcccc	5				200		39
-      				.
-
-Tue May 02 23:29:26 2017
- 							insurance  		1		100				40
-      							cashaccc	2				100		40
+Wed May 03 14:28:23 2017
+ 							insurance  		1		200				1
+      							cashaccc	2				200		1
       				.

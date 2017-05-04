@@ -298,3 +298,44 @@ int main () {
     getchar();
 
 }
+
+/*void balanceArray() {
+
+    int BalanceArray5[4][4],i,j,y=1;
+
+    //Stored values into the array
+    printf("Input elements in the matrix: \n");
+    for(i=1;i<4;i++) {
+        for(j=1;j<4;j++) {
+            printf("element - [%d],[%d] : ",i,j);
+            scanf("%d",&BalanceArray5[i][j]);
+        }
+    }  
+    //print all 
+    printf("\nThe matrix is : \n\n");
+    for(j=1;j<4;j++) {
+        printf(" \t%d",y++);
+    }
+    printf("\n");
+
+    for(i=1;i<4;i++) {
+        printf("\n");
+        printf("%d\t",i);
+        for(j=1;j<4;j++) {
+            printf("%d\t",BalanceArray5[i][j]);
+        }
+    }
+    
+    //print balance
+    BalanceArray5[3][1]=BalanceArray5[3][1] - BalanceArray5[3][1] - BalanceArray5[3][1];
+    BalanceArray5[3][2]=BalanceArray5[3][2] - BalanceArray5[3][2] - BalanceArray5[3][2];
+    BalanceArray5[3][3]=BalanceArray5[3][3] - BalanceArray5[3][3] - BalanceArray5[3][3];
+    //Make a more efficent loop
+
+    printf("\n\n");
+    printf("Balance\t");
+    for(j=1;j<4;j++) {
+        printf("%d\t",BalanceArray5[1][1] + BalanceArray5[2][1] + BalanceArray5[3][1]);
+    }
+    printf("\n");
+}*/

@@ -210,6 +210,7 @@ int ledger_menu(){
         return 0;
 }
 
+
 int journal_menu(){
     ACCOUNT* head = NULL;
     head = malloc(sizeof(ACCOUNT));

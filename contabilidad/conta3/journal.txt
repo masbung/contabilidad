@@ -8,3 +8,13 @@ Wed May 03 14:28:23 2017
  							insurance  		1		200				1
       							cashaccc	2				200		1
       				.
+
+Tue May 16 13:57:48 2017
+ 							insurance  		1		100				1
+      							cashaccc	2				100		1
+      				.
+
+Tue May 16 16:34:21 2017
+ 							insurance  		1		100				1
+      							cashaccc	2				100		1
+      				.
